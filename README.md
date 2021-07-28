@@ -2,7 +2,7 @@
 
 Instructions:
 
- 1. //Install Ganache locally
+ 1. //Install Ganache locally `brew install --cask ganache`.
       //Choose Ethereum (Quickstart)
  2. //Pair the app with Ganache 
         //Click the settings icon in the top right side
