@@ -13,8 +13,8 @@ Instructions:
 
  3. Install Dependencies  
   ```
-  - `Npm i -g truffle`
-  - `Npm i`
+  npm i -g truffle
+  npm i
   ```
  4. Start server
   ```
