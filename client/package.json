@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "boxicons": "^2.0.9",
     "eslint": "^7.31.0",
     "framer-motion": "^4.1.17",
     "next": "^11.0.1",
@@ -23,5 +22,8 @@
     "react-dom": "^17.0.2",
     "sass": "^1.36.0",
     "web3": "^1.4.0"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^5.5.0"
   }
 }

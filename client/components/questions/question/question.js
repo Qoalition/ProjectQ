@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image'
 
 // SCSS Module
 import styles from './question.module.scss'
+
+// icons
+import Upvote from './icons/upvote'
+import Downvote from './icons/downvote'
+import Comment from './icons/comment'
+import Share from './icons/share'
 
 const question = props => {
     return (
@@ -14,20 +21,20 @@ const question = props => {
             <article>Will this be the top answer or a description to the question? Ultimately, just secondary text though to expand on the...</article>
             <footer>
                 <ul>
-                    <li>
-                        <box-icon name='upvote'></box-icon>
+                    <li className={styles.active}>
+                        <Upvote />
                         915
                     </li>
                     <li>
-                        <box-icon name='downvote'></box-icon>
+                        <Downvote />
                         50
                     </li>
                     <li>
-                        <box-icon name='comment-add' ></box-icon>
+                        <Comment />
                         32
                     </li>
                     <li>
-                        <box-icon name='share' flip='horizontal' ></box-icon>
+                        <Share />
                     </li>
                 </ul>
             </footer>

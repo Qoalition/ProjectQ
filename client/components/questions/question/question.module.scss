@@ -30,12 +30,28 @@
                 &:last-of-type {
                     margin-left: auto;
                 }
+                &:hover {
+                    cursor: pointer;
+                    svg {
+                        path {
+                            fill: #FF6B00;
+                        }
+                    }
+                }
             }
-            box-icon {
-                fill: #fff;
-                margin-right: 0.5rem;
-                // stroke: #fff;
+            svg {
+                path {
+                    fill: #fff;
+                }
+                margin-right: 0.5rem!important;
             }
+        }
+    }
+}
+.active {
+    svg {
+        path {
+            fill: #00D1FF !important;
         }
     }
 }
