@@ -24,7 +24,7 @@ const Feed = props => {
                 <hr />
                 100 Answers
                 <hr />
-                {/* Insert answers here */}
+                Insert answers here... (need an answer component with interactive elements)
             </div>
         </div>
     );
