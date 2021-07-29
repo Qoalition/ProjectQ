@@ -1,0 +1,12 @@
+.questions {
+    max-width: 48rem;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    column-gap: 2rem;
+    & > div:last-of-type {
+        display: grid;
+        grid-template-rows: auto;
+        row-gap: 4.75rem;
+    }
+}
