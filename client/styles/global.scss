@@ -1,0 +1,11 @@
+body {
+    background-color: #151517;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+#__next {
+    & > div {
+        padding: 2.75rem 4.5rem;
+    }
+}
