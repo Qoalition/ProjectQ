@@ -23,15 +23,12 @@ const question = props => {
                 <ul>
                     <li className={styles.active}>
                         <Upvote />
-                        915
                     </li>
                     <li>
                         <Downvote />
-                        50
                     </li>
                     <li>
                         <Comment />
-                        32
                     </li>
                     <li>
                         <Share />
