@@ -1,6 +1,16 @@
 # ProjectQ
 
-Instructions:
+- [ProjectQ](#projectq)
+  - [Setup Instructions:](#setup-instructions)
+  - [Quick Start Instructions](#quick-start-instructions)
+  - [Contributors](#contributors)
+
+
+Qoalition is a decentralised blockchain community for curious minds!
+
+With Qoalition, you can earn while you learn! Ask and answer questions on Qoaltion and get paid in crypto currency.
+
+## Setup Instructions:
 
  1. Install Ganache locally  `brew install --cask ganache`.
  - Choose Ethereum (Quickstart)
@@ -38,3 +48,24 @@ Instructions:
   npm run start
   ```
         
+## Quick Start Instructions
+
+1. Start the server
+```
+cd server
+npm run start-dev
+```
+2. Start the front end
+```
+cd client
+npm run start
+```
+3. Open Ganache
+
+## Contributors
+
+- Julia Collins
+- Tom Harper
+- Kevin Berlanga
+- Eric Wilding
+- Sean Yalda
