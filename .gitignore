@@ -18,5 +18,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # package locks 
-client/package-lock.json
 package-lock.json
+client/package-lock.json
