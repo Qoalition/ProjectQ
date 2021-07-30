@@ -1,25 +1,33 @@
-const next = require('next')
+"use strict";
+var next = require('next');
 // const express = require('express')
-const express = require('express-observer')
+const bodyParser = require('body-parser');
+var express = require('express-observer');
 
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+var dev = process.env.NODE_ENV !== 'production';
+var app = next({ dev: dev });
+var handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  const server = express()
+app.prepare().then(function () {
+  var server = express();
 
-  // server.use(bodyParser.json())
-  // add custom path here
-  // server.post('/request/custom', custom);
+  server.use(bodyParser.json())
 
-  server.get('*', (req, res) => {
-    console.log('GOT A REQUEST :D')
-    return handle(req, res)
-  })
+  server.use('/users', require("./routes/users"));
 
-  server.listen(5000, (err) => {
-    if (err) throw err
-    console.log('Ready on http://localhost:5000')
-  })
-})
+  server.get('*', function (req, res) {
+    console.log('GOT A REQUEST :D');
+    return handle(req, res);
+  });
+
+  server.use(function (err, req, res, next) {
+    console.log("ERROR");
+    return handle(err)
+  });
+
+  server.listen(5000, function (err) {
+    if (err)
+      throw err;
+    console.log('Ready on http://localhost:5000');
+  });
+});

@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "node server.js",
+    "server": "nodemon server/server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server/server.js",
     "start-dev": "nodemon server/server.js",
@@ -23,8 +23,10 @@
     "mongoose": "^5.13.3",
     "next": "^11.0.1",
     "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "web3": "1"
-  }
+  },
+  "devDependencies": {}
 }
