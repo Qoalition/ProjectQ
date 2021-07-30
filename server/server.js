@@ -14,6 +14,7 @@ app.prepare().then(function () {
   server.use(bodyParser.json())
 
   server.use('/users', require("./routes/users"));
+  server.use('/questions/', require("./routes/questions"));
 
   server.get('*', function (req, res) {
     console.log('GOT A REQUEST :D');
