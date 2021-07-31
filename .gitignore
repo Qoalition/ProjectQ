@@ -2,6 +2,7 @@ node_modules
 client/node_modules
 build
 client/.next
+.env
 
 # next.js build output
 .next
