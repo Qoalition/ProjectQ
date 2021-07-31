@@ -2,11 +2,11 @@
 pragma solidity ^0.8.4;
 
 contract QuestionContract {
-    // Answer stuff
+    // Answer data
     AnswerContract[] public answers;
     event AnswerCreated(address answerAddress, uint id);
     
-    // Question stuff
+    // Question data
     address public manager;
     mapping(address => bool) public upVoters;
     mapping(address => bool) public downVoters;
