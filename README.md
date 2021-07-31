@@ -3,6 +3,7 @@
 - [ProjectQ](#projectq)
   - [Setup Instructions:](#setup-instructions)
   - [Quick Start Instructions](#quick-start-instructions)
+  - [Without Ganache](#without-ganache)
   - [Contributors](#contributors)
 
 
@@ -60,6 +61,20 @@ cd client
 npm run start
 ```
 3. Open Ganache
+
+## Without Ganache
+
+1. Start Truffle
+```
+npx truffle develop
+truffle migrate --reset // remove --reset normally
+```
+2. If you are running it first time locally
+```
+truffle migrate --reset
+```
+3. Copy the contract address that appears.
+4. Place it in `contractData.js` and in `.env` as the `CONTRACT_ADDRESS`.
 
 ## Contributors
 

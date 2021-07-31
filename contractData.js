@@ -44,5 +44,5 @@ module.exports = {
       "type": "function"
     }
   ],
-  CONTRACT_ADDRESS: '0x8732939cE66C8752ED55d0e186A8cdc0a66C0c59'
+  CONTRACT_ADDRESS: '0x492dAE994692F3B3012ed4Ee18893cd366d542Bb'
 }
