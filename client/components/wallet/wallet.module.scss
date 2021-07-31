@@ -1,0 +1,19 @@
+.wallet {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    font-size: 0.875rem;
+    img {
+        margin-right: 0.25rem!important;
+    }
+    & > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    span {
+        color: #00FF47;
+        font-size: 1.3125rem;
+    }
+}
