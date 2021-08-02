@@ -17,7 +17,7 @@ app.prepare().then(function () {
   server.use('/questions/', require("./routes/questions"));
 
   server.get('*', function (req, res) {
-    console.log('GOT A REQUEST :D');
+    console.log('DEBUG :: ERROR => Recieved an unclaimed request');
     return handle(req, res);
   });
 
