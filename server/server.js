@@ -6,7 +6,10 @@ var express = require('express-observer');
 
 var dev = process.env.NODE_ENV !== 'production';
 var app = next({ dev: dev });
-var handle = app.getRequestHandler();
+
+//grab out instance of web3 provider
+const Web3 = require('web3');
+const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
 
 app.prepare().then(function () {
   var server = express();
