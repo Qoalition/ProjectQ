@@ -1,4 +1,5 @@
 const db = require('./db')
+const { contract } = require('../config')
 
 const getAllQuestions = (request, response) => {
   const getAllQuestionsQuery =
@@ -21,13 +22,17 @@ const createQuestion = (request, response) => {
 
   const createQuestionQuery =
     `INSERT INTO questions(question, user_id) \
-      VALUES ('${question_val}', ${user_id})`
+      VALUES ('${question_val}', ${user_id}) \
+      RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {
     if (error) {
       throw error
     }
-    console.log("DEBUG :: createQuestion => ", results.rows)
+    console.log("DEBUG :: results => ", results.rows[0].question_id)
+
+    contract.createQuestion(results.rows[0].question_id)
+
     response.status(200).json(results.rows)
   })
 }
