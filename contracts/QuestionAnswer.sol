@@ -1,6 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+contract RootQuestionsContract {
+    QuestionContract[] public questions;
+    event QuestionCreated(address questionAddress, uint id);
+    address public manager;
+
+    constructor() {
+        manager = msg.sender;
+    }
+    
+    function addQuestion(uint _id) public {
+        QuestionContract question = new QuestionContract(_id);
+        questions.push(question);
+        emit QuestionCreated(address(question), _id);
+    }
+    
+    function getQuestions() external view returns(QuestionContract[] memory _questions) {
+        _questions = questions;
+    }
+    
+    function upVoteQuestion(uint questionIndex) public {
+        require(questionIndex >= 0, 'Question not found');
+        require(questionIndex < questions.length, 'Question not found');
+        questions[questionIndex].upVoteQuestion();
+    }
+
+    function downVoteQuestion(uint questionIndex) public {
+        require(questionIndex >= 0, 'Question not found');
+        require(questionIndex < questions.length, 'Question not found');
+        questions[questionIndex].downVoteQuestion();
+    }
+}
+
 contract QuestionContract {
     // Answer data
     AnswerContract[] public answers;
@@ -22,28 +54,28 @@ contract QuestionContract {
         _question.id = _id;
         _question.upVotes = 1;
         _question.downVotes = 0;
-        _question.asker = msg.sender;
-        upVoters[msg.sender] = true;
-        manager = msg.sender;
+        _question.asker = tx.origin;
+        upVoters[tx.origin] = true;
+        manager = tx.origin;
     }
 
     function upVoteQuestion() public {
-        require(upVoters[msg.sender] == false, 'You can only vote once');
+        require(upVoters[tx.origin] == false, 'You can only vote once');
         _question.upVotes += 1;
-        upVoters[msg.sender] = true;
-        if (downVoters[msg.sender]) {
+        upVoters[tx.origin] = true;
+        if (downVoters[tx.origin]) {
             _question.downVotes -= 1;
-            downVoters[msg.sender] = false;
+            downVoters[tx.origin] = false;
         }
     }
 
     function downVoteQuestion() public {
-        require(downVoters[msg.sender] == false, 'You can only vote once');
+        require(downVoters[tx.origin] == false, 'You can only vote once');
         _question.downVotes += 1;
-        downVoters[msg.sender] = true;
-        if (upVoters[msg.sender]) {
+        downVoters[tx.origin] = true;
+        if (upVoters[tx.origin]) {
             _question.upVotes -= 1;
-            upVoters[msg.sender] = false;
+            upVoters[tx.origin] = false;
         }
     }
 
