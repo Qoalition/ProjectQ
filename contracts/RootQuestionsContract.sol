@@ -12,10 +12,12 @@ contract RootQuestionsContract {
         manager = msg.sender;
     }
     
-    function addQuestion(uint _id) public {
+    function addQuestion(uint _id) public returns(QuestionContract _q){
         QuestionContract question = new QuestionContract(_id);
         questions.push(question);
         emit QuestionCreated(address(question), _id);
+        _q = question;
+        return _q;
     }
     
     function getQuestions() external view returns(QuestionContract[] memory _questions) {
