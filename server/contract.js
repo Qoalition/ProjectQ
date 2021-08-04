@@ -15,12 +15,12 @@ class Contract {
   async contractInit() {
     // TRUFFLE CONFIG
     // if(process.env.CONTRACT_TESTNET === 'truffle') {
-    //   this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
+      this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
     //   console.log("CONNECTED TO TRUFFLE ", this.web3)
     // }
     // else if (process.env.CONTRACT_TESTNET === 'ganache') {
-      this.web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:7545'));
-      console.log("CONNECTED TO ganache", this.web3)
+      // this.web3 = new Web3(new Web3.providers.WebsocketProvider('ws://localhost:7545'));
+      // console.log("CONNECTED TO ganache", this.web3)
     // }
 
     this.contract = new this.web3.eth.Contract(this.contract_abi, this.contract_address);

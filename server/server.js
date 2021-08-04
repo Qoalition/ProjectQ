@@ -8,7 +8,7 @@ const Web3 = require('web3');
 var dev = process.env.NODE_ENV !== 'production';
 var app = next({ dev: dev });
 const { abi } = require('../build/contracts/RootQuestionsContract.json')
-const {addQuestion} = require('./blockchain/helpers.js');
+const {addQuestion, getQuestions} = require('./blockchain/helpers.js');
 
 app.prepare().then(function () {
   var server = express();
@@ -19,7 +19,7 @@ app.prepare().then(function () {
   server.use('/users', require("./routes/users"));
   server.use('/questions/', require("./routes/questions"));
   server.get('/test/addQuestion', addQuestion);
-  server.get('/test/getQuestions', () => {})
+  server.get('/test/getQuestions', getQuestions)
   server.get('/test/upVoteQuestion', () => {})
   server.get('/test/downVoteQuestion', () => {})
 
