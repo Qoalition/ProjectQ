@@ -18,7 +18,6 @@ const addQuestion = async (req, res) => {
 
 const getQuestions = async (req, res) => {
   try {
-    // Change 2 to dynamic value passed in from previous middleware function
     const result = await contract.methods.getQuestions().call();
     return res.send(result)
   } catch (error) {
