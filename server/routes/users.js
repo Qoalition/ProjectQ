@@ -4,6 +4,10 @@ const db = require('../db/users')
 
 router.get("/get", db.getUsers);
 
-router.post("/create/:walletId", db.createUser);
+router.post("/create", db.createUser);
+
+// login
+
+// 
 
 module.exports = router

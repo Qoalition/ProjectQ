@@ -16,20 +16,18 @@ const getUsers = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  let walletId = request.params.walletId.toString()
+  const { username, password, walletId } = request.body;
 
   const createUserQuery =
-    `INSERT INTO users(wallet_id) \
-      VALUES (${walletId}) \ 
-      RETURNING id`
+    `INSERT INTO users(username, password, wallet_id) \
+      VALUES ('${username}', '${password}', '${walletId}') \
+      RETURNING user_id`
 
-
-  console.log("DEBUG : walletId =>", typeof(walletId))
   db.query(createUserQuery, (error, results) => {
     if (error) {
       throw error
     }
-    
+
     console.log("DEBUG :: createUser => ", results)
 
     response.status(200).json(results.rows)
