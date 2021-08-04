@@ -55,7 +55,8 @@ With Qoalition, you can earn while you learn! Ask and answer questions on Qoalti
 1. If you haven't already, install postgres on your machine.
 2. Enter into the postgres shell using `psql`
 3. Run `create database qoalition;`
-4. Run the following commands to create each table:
+4. Connect to the DB using `\c qoalition`.
+5. Run the following commands to create each table:
 ```
 CREATE TABLE users (
  user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
