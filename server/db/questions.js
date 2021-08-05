@@ -1,5 +1,4 @@
 const db = require('./db')
-const { contract } = require('../config')
 
 const getAllQuestions = (request, response) => {
   // const getAllQuestionsQuery =
