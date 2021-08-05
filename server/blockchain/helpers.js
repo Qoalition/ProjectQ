@@ -26,8 +26,7 @@ const upVoteQuestionByAddress = async (req, res) => {
 };
 
 const addQuestion = async (req, res) => {
-  // Change 2 to dynamic value passed in from previous middleware function
-  const questionId = 3;
+  const questionId = req.params.id;
   try {
     const result = await contract.methods
       .addQuestion(questionId)

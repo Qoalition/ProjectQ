@@ -23,7 +23,7 @@ app.prepare().then(function () {
 
   server.use("/users", require("./routes/users"));
   server.use("/questions/", require("./routes/questions"));
-  server.get("/test/addQuestion", addQuestion);
+  server.get("/test/addQuestion/:id", addQuestion);
   server.get("/test/getQuestions", getQuestions);
   server.get("/test/upVoteQuestionByIndex/:index", upVoteQuestionByIndex);
   server.get("/test/downVoteQuestionByIndex/:index", downVoteQuestionByIndex);
