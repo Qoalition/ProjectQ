@@ -6,10 +6,10 @@ import Image from 'next/image'
 import styles from './question.module.scss'
 
 // icons
-import Upvote from './icons/upvote'
-import Downvote from './icons/downvote'
-import Comment from './icons/comment'
-import Share from './icons/share'
+import Upvote from '../../icons/upvote'
+import Downvote from '../../icons/downvote'
+import Comment from '../../icons/comment'
+import Share from '../../icons/share'
 
 const question = props => {
     return (
@@ -22,10 +22,10 @@ const question = props => {
             <footer>
                 <ul>
                     <li className={styles.active}>
-                        <Upvote />
+                        <Upvote type="question" id="" />
                     </li>
                     <li>
-                        <Downvote />
+                        <Downvote type="question" id="" />
                     </li>
                     <li>
                         <Comment />

@@ -11,15 +11,15 @@ const header = props => {
     return (
         <header className={styles.header}>
             <div className="logo">
-                    <Image src={logo} alt="Q logo" />
-                </div>
-                <div className="menu">
-                    <ul>
-                        <li>
-                            <Wallet />
-                        </li>
-                    </ul>
-                </div>
+                <Image src={logo} alt="Q logo" />
+            </div>
+            <div className="menu">
+                <ul>
+                    <li>
+                        <Wallet />
+                    </li>
+                </ul>
+            </div>
         </header>
     );
 };
