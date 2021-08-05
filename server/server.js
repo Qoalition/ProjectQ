@@ -17,7 +17,7 @@ app.prepare().then(function () {
   server.use(express.json());
 
   server.use("/users", usersRouter);
-  server.use("/questions/", questionsRouter);
+  server.use("/questions", questionsRouter);
   server.use("/answers", answersRouter);
   // Keep for testing
   server.use("/test", blockchainRouter);
