@@ -15,17 +15,19 @@ const upvote = ({type, id, count, fill, stroke}) => {
 };
 
 upvote.propTypes = {
-    type: String,
-    id: Number,
-    count: Number,
-    fill: String,
-    stroke: String
+    type: PropTypes.string,
+    id: PropTypes.number,
+    count: PropTypes.number,
+    fill: PropTypes.string,
+    stroke: PropTypes.string
 };
 
 upvote.defaultProps = {
     fill: '#fff',
-    stroke: null,
+    stroke: 'null',
     count: 90,
+    id: 1,
+    type: 'null',
 }
 
 export default upvote;

@@ -10,8 +10,8 @@ const share = ({fill, stroke}) => {
 };
 
 share.propTypes = {
-    fill: String,
-    stroke: String
+    fill: PropTypes.string,
+    stroke: PropTypes.string
 };
 
 share.defaultProps = {
