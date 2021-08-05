@@ -3,6 +3,7 @@ const { abi } = require("../../build/contracts/RootQuestionsContract.json");
 const {
   abi: questionAbi,
 } = require("../../build/contracts/QuestionContract.json");
+const RootQuestionsContract = require("./RootQuestionContractClass.js");
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
@@ -12,25 +13,7 @@ const contract = new web3.eth.Contract(
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
 
-class RootQuestionsContract {
-  constructor() {
-    this.contract = contract;
-    this.accounts = accounts;
-    this.account = getAccount();
-  }
-
-  async addQuestion(questionId) {
-    return await contract.methods
-      .addQuestion(questionId)
-      .send({ from: await this.account, gas: 2000000 });
-  }
-
-  async getQuestions() {
-    return await contract.methods.getQuestions().call();
-  }
-}
-
-const rootContract = new RootQuestionsContract();
+const rootContract = new RootQuestionsContract(contract, accounts);
 
 const addQuestion = async (req, res) => {
   const questionId = req.params.id;

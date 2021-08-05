@@ -8,8 +8,8 @@ const {
   upVoteQuestionByAddress,
 } = require("../blockchain/helpers.js");
 
-router.get("/addQuestion/:id", addQuestion);
 router.get("/getQuestions", getQuestions);
+router.get("/addQuestion/:id", addQuestion);
 router.get("/upVoteQuestionByIndex/:index", upVoteQuestionByIndex);
 router.get("/downVoteQuestionByIndex/:index", downVoteQuestionByIndex);
 router.get("/upVoteQuestionByAddress/:address", upVoteQuestionByAddress);
