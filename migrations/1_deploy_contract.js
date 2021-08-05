@@ -1,5 +1,6 @@
-const HashingWell = artifacts.require("HashingWell");
+const RootQuestionsContract = artifacts.require("RootQuestionsContract");
+// const AnswerContract = artifacts.require("QuestionAnswer");
 
 module.exports = function (deployer) {
-  deployer.deploy(HashingWell);
+  deployer.deploy(RootQuestionsContract);
 };

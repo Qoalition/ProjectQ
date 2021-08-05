@@ -1,48 +1,116 @@
 module.exports = {
   CONTRACT_ABI: [
     {
-      "anonymous": false,
       "inputs": [],
-      "name": "DrainWishes",
-      "type": "event"
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
       "anonymous": false,
       "inputs": [
         {
           "indexed": false,
-          "internalType": "bytes32",
-          "name": "wish",
-          "type": "bytes32"
+          "internalType": "address",
+          "name": "questionAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
         }
       ],
-      "name": "WishMade",
+      "name": "QuestionCreated",
       "type": "event"
     },
     {
-      "constant": false,
-      "inputs": [
+      "inputs": [],
+      "name": "manager",
+      "outputs": [
         {
-          "internalType": "bytes32",
-          "name": "_wish",
-          "type": "bytes32"
+          "internalType": "address",
+          "name": "",
+          "type": "address"
         }
       ],
-      "name": "hashWish",
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "questions",
+      "outputs": [
+        {
+          "internalType": "contract QuestionContract",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "addQuestion",
       "outputs": [],
-      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "constant": false,
       "inputs": [],
-      "name": "drainWishes",
+      "name": "getQuestions",
+      "outputs": [
+        {
+          "internalType": "contract QuestionContract[]",
+          "name": "_questions",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "questionIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "upVoteQuestion",
       "outputs": [],
-      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "questionIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "downVoteQuestion",
+      "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     }
   ],
-  CONTRACT_ADDRESS: '0x02450969821f05a467DD80fFE41e7A565877BA3E'
+  CONTRACT_ADDRESS: '0x9E6026690707D6D7049867E1Ab92351eD73908d0'
 }

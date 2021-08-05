@@ -2,6 +2,8 @@ node_modules
 client/node_modules
 build
 client/.next
+.env
+contractData.js
 
 # next.js build output
 .next
