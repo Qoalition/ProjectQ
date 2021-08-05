@@ -8,7 +8,7 @@ const RootQuestionsContract = require("./RootQuestionContractClass.js");
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
   abi,
-  "0xF21Dc1586F76e3057C941091Dbb12D53c351779F"
+  "0x73d2Db37d53B8c4Ae28DbeE411d5f4463Fb9E964"
 );
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
