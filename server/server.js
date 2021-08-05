@@ -1,32 +1,36 @@
 "use strict";
 var next = require('next');
-// const express = require('express')
+const express = require('express')
 const bodyParser = require('body-parser');
-var express = require('express-observer');
-
+// var express = require('express-observer');
+const { contract } = require('./config')
+const Web3 = require('web3');
 var dev = process.env.NODE_ENV !== 'production';
 var app = next({ dev: dev });
-
-//grab out instance of web3 provider
-const Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
+const { abi } = require('../build/contracts/RootQuestionsContract.json')
+const { addQuestion } = require('./blockchain/helpers.js');
 
 app.prepare().then(function () {
   var server = express();
 
-  server.use(bodyParser.json())
+  server.use(express.json())
 
   server.use('/users', require("./routes/users"));
   server.use('/questions/', require("./routes/questions"));
+  server.use('/answers', require("./routes/answers"));
+  server.get('/test/addQuestion', addQuestion);
+  server.get('/test/getQuestions', () => { })
+  server.get('/test/upVoteQuestion', () => { })
+  server.get('/test/downVoteQuestion', () => { })
 
   server.get('*', function (req, res) {
-    console.log('GOT A REQUEST :D');
-    return handle(req, res);
+    console.log('DEBUG :: Server Error => Recieved an unclaimed request');
+    res.status(500).send("ERROR => Recieved an unclaimed request")
   });
 
   server.use(function (err, req, res, next) {
-    console.log("ERROR");
-    return handle(err)
+    console.log("DEBUG :: Server Error => :", err);
+    res.status(500).send(err)
   });
 
   server.listen(5000, function (err) {
