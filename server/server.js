@@ -10,31 +10,32 @@ var app = next({ dev: dev });
 const { abi } = require("../build/contracts/RootQuestionsContract.json");
 const usersRouter = require("./routes/users");
 const questionsRouter = require("./routes/questions");
+const answersRouter = require("./routes/answers");
 const blockchainRouter = require("./routes/blockchain");
 
 app.prepare().then(function () {
   var server = express();
 
-  server.use(bodyParser.json());
+  server.use(express.json());
 
   server.use("/users", usersRouter);
   server.use("/questions/", questionsRouter);
-  // Leave this router in for testing
+  server.use("/answers", answersRouter);
+  // Keep for testing
   server.use("/test", blockchainRouter);
 
   server.get("*", function (req, res) {
-    console.log("DEBUG :: ERROR => Received an unclaimed request");
-    return handle(req, res);
+    console.log("DEBUG :: Server Error => Recieved an unclaimed request");
+    res.status(500).send("ERROR => Recieved an unclaimed request");
   });
 
   server.use(function (err, req, res, next) {
-    console.log("ERROR");
-    return handle(err);
+    console.log("DEBUG :: Server Error => :", err);
+    res.status(500).send(err);
   });
 
   server.listen(5000, function (err) {
     if (err) throw err;
-
     console.log("Ready on http://localhost:5000");
   });
 });
