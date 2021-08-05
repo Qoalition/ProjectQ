@@ -2,7 +2,7 @@ class RootQuestionsContract {
   constructor(contract, accounts) {
     this.contract = contract;
     this.accounts = accounts;
-    this.gas = 200000;
+    this.gas = 2000000;
   }
 
   async getAccount() {
