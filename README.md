@@ -52,13 +52,25 @@ With Qoalition, you can earn while you learn! Ask and answer questions on Qoalti
 
 ## Database setup
 
+There are two ways you can connect to a DB: 'local' and 'server'.
+
+ELEPHANT SQL (default):\
+To connect to the Elephant SQL DB:
+
+1. In your .env, set DATABASE = 'server'
+
+LOCAL:\
+To connect to a local DB:
+
 1. If you haven't already, install postgres on your machine.
 2. Enter into the postgres shell using `psql`
 3. Run `CREATE DATABASE qoalition;`
 4. Connect to the DB using `\c qoalition`.
-5. Run the following commands to create a fresh DB with some initial data
-   Currently includes 5 users, 3 questions, and 5 answers.
-   Or simply run a subset of commands you want to use for development.
+5. In your .env, set DATABASE = 'local'
+
+Run the following commands to create a fresh DB with some initial data
+Currently includes 5 users, 3 questions, and 5 answers.
+Or simply run a subset of commands you want to use for development.
 ```
 DROP TABLE questions,answers,users,commendations;
 
