@@ -4,15 +4,17 @@ const { abi } = require("../../build/contracts/RootQuestionsContract.json");
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
   abi,
-  "0x711d0F250Da1fC44d03A4Be32d1CC9b2ED160CE8"
+  "0x39E042Aa4361D5892E7bdec1A041139C7ccAe813"
 );
 const accounts = web3.eth.getAccounts();
+const getAccount = async () => (await accounts)[0];
 
 const addQuestion = async (req, res) => {
   // Change 2 to dynamic value passed in from previous middleware function
-  const questionId = 2;
+  const questionId = 3;
   try {
-    const result = await contract.methods.addQuestion(questionId).call();
+    const result = await contract.methods.addQuestion(questionId).send({ from: await getAccount(), gas: 2000000 });
+    const { questionAddress } = result.events.QuestionCreated.returnValues;
     return res.send(result);
   } catch (error) {
     return res.send({ error: error.message });
