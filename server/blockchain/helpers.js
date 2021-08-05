@@ -8,12 +8,14 @@ const RootQuestionsContract = require("./RootQuestionContractClass.js");
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
   abi,
-  "0x39E042Aa4361D5892E7bdec1A041139C7ccAe813"
+  "0xF21Dc1586F76e3057C941091Dbb12D53c351779F"
 );
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
 
 const rootContract = new RootQuestionsContract(contract, accounts);
+
+// These functions are used for testing and building the blockchain functions
 
 const addQuestion = async (req, res) => {
   const questionId = req.params.id;

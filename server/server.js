@@ -19,6 +19,7 @@ app.prepare().then(function () {
 
   server.use("/users", usersRouter);
   server.use("/questions/", questionsRouter);
+  // Leave this router in for testing
   server.use("/test", blockchainRouter);
 
   server.get("*", function (req, res) {

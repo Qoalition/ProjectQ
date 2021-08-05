@@ -15,6 +15,8 @@ const getAccount = async () => (await accounts)[0];
 
 const rootContract = new RootQuestionsContract(contract, accounts);
 
+// Update these functions as necessary to use as middleware
+
 const addQuestion = async (req, res) => {
   const questionId = req.params.id;
   try {
