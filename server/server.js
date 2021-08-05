@@ -1,41 +1,41 @@
 "use strict";
-var next = require('next');
-const express = require('express')
-const bodyParser = require('body-parser');
+var next = require("next");
+const express = require("express");
+const bodyParser = require("body-parser");
 // var express = require('express-observer');
-const { contract } = require('./config')
-const Web3 = require('web3');
-var dev = process.env.NODE_ENV !== 'production';
+const { contract } = require("./config");
+const Web3 = require("web3");
+var dev = process.env.NODE_ENV !== "production";
 var app = next({ dev: dev });
-const { abi } = require('../build/contracts/RootQuestionsContract.json')
-const { addQuestion } = require('./blockchain/helpers.js');
+const { abi } = require("../build/contracts/RootQuestionsContract.json");
+const usersRouter = require("./routes/users");
+const questionsRouter = require("./routes/questions");
+const answersRouter = require("./routes/answers");
+const blockchainRouter = require("./routes/blockchain");
 
 app.prepare().then(function () {
   var server = express();
 
-  server.use(express.json())
+  server.use(express.json());
 
-  server.use('/users', require("./routes/users"));
-  server.use('/questions/', require("./routes/questions"));
-  server.use('/answers', require("./routes/answers"));
-  server.get('/test/addQuestion', addQuestion);
-  server.get('/test/getQuestions', () => { })
-  server.get('/test/upVoteQuestion', () => { })
-  server.get('/test/downVoteQuestion', () => { })
+  server.use("/users", usersRouter);
+  server.use("/questions/", questionsRouter);
+  server.use("/answers", answersRouter);
+  // Keep for testing
+  server.use("/test", blockchainRouter);
 
-  server.get('*', function (req, res) {
-    console.log('DEBUG :: Server Error => Recieved an unclaimed request');
-    res.status(500).send("ERROR => Recieved an unclaimed request")
+  server.get("*", function (req, res) {
+    console.log("DEBUG :: Server Error => Recieved an unclaimed request");
+    res.status(500).send("ERROR => Recieved an unclaimed request");
   });
 
   server.use(function (err, req, res, next) {
     console.log("DEBUG :: Server Error => :", err);
-    res.status(500).send(err)
+    res.status(500).send(err);
   });
 
   server.listen(5000, function (err) {
-    if (err)
-      throw err;
-    console.log('Ready on http://localhost:5000');
+    if (err) throw err;
+    console.log("Ready on http://localhost:5000");
   });
 });

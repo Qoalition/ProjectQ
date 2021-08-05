@@ -15,7 +15,7 @@ const getAccount = async () => (await accounts)[0];
 
 const rootContract = new RootQuestionsContract(contract, accounts);
 
-// These functions are used for testing and building the blockchain functions
+// Update these functions as necessary to use as middleware
 
 const addQuestion = async (req, res) => {
   const questionId = req.params.id;
@@ -57,6 +57,7 @@ const downVoteQuestionByIndex = async (req, res) => {
   }
 };
 
+// WIP
 const upVoteQuestionByAddress = async (req, res) => {
   const address = req.params.address.toString();
   const questionContract = new web3.eth.Contract(questionAbi, address);
