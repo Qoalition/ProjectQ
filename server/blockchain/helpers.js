@@ -38,24 +38,20 @@ const getQuestions = async (req, res) => {
 const upVoteQuestionByIndex = async (req, res) => {
   const questionIndex = req.params.index;
   try {
-    const result = await contract.methods
-      .upVoteQuestion(questionIndex)
-      .send({ from: await getAccount(), gas: 2000000 });
+    const result = await rootContract.upVoteQuestionByIndex(questionIndex);
     return res.send(result);
   } catch (error) {
-    return res.send({ error: error.message });
+    return res.send({ error });
   }
 };
 
 const downVoteQuestionByIndex = async (req, res) => {
   const questionIndex = req.params.index;
   try {
-    const result = await contract.methods
-      .downVoteQuestion(questionIndex)
-      .send({ from: await getAccount(), gas: 2000000 });
+    const result = await rootContract.downVoteQuestionByIndex(questionIndex);
     return res.send(result);
   } catch (error) {
-    return res.send({ error: error.message });
+    return res.send({ error });
   }
 };
 
@@ -68,7 +64,7 @@ const upVoteQuestionByAddress = async (req, res) => {
       .send({ from: await getAccount(), gas: 2000000 });
     return res.send(result);
   } catch (error) {
-    return res.send({ error: error.message });
+    return res.send({ error });
   }
 };
 

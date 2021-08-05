@@ -2,7 +2,7 @@ class RootQuestionsContract {
   constructor(contract, accounts) {
     this.contract = contract;
     this.accounts = accounts;
-    this.gas = 2000000;
+    this.gas = 200000;
   }
 
   async getAccount() {
@@ -22,6 +22,12 @@ class RootQuestionsContract {
   async upVoteQuestionByIndex(questionIndex) {
     return await this.contract.methods
       .upVoteQuestion(questionIndex)
+      .send({ from: await this.getAccount(), gas: this.gas });
+  }
+
+  async downVoteQuestionByIndex(questionIndex) {
+    return await this.contract.methods
+      .downVoteQuestion(questionIndex)
       .send({ from: await this.getAccount(), gas: this.gas });
   }
 }
