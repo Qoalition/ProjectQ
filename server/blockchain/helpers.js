@@ -13,7 +13,9 @@ const addQuestion = async (req, res) => {
   // Change 2 to dynamic value passed in from previous middleware function
   const questionId = 3;
   try {
-    const result = await contract.methods.addQuestion(questionId).send({ from: await getAccount(), gas: 2000000 });
+    const result = await contract.methods
+      .addQuestion(questionId)
+      .send({ from: await getAccount(), gas: 2000000 });
     const { questionAddress } = result.events.QuestionCreated.returnValues;
     return res.send(result);
   } catch (error) {
@@ -34,7 +36,9 @@ const upVoteQuestionByIndex = async (req, res) => {
   // Update questionIndex value to be dynamic
   const questionIndex = 0;
   try {
-    const result = await contract.methods.upVoteQuestion(questionIndex).call();
+    const result = await contract.methods
+      .upVoteQuestion(questionIndex)
+      .send({ from: await getAccount(), gas: 2000000 });
     return res.send(result);
   } catch (error) {
     return res.send({ error: error.message });
@@ -47,7 +51,7 @@ const downVoteQuestionByIndex = async (req, res) => {
   try {
     const result = await contract.methods
       .downVoteQuestion(questionIndex)
-      .call();
+      .send({ from: await getAccount(), gas: 2000000 });
     return res.send(result);
   } catch (error) {
     return res.send({ error: error.message });
