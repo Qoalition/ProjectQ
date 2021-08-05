@@ -141,7 +141,7 @@ const getQuestionsByTopic = (request, response) => {
   })
 }
 
-const getQuestionsByTopic = (request, response) => {
+const getUniqueQuestionTopics = (request, response) => {
   const { topic } = request.body
 
   // Get all unique topics of questions
@@ -156,7 +156,7 @@ const getQuestionsByTopic = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : getQuestionsByTopic => ", results.rows[0])
+    console.log("DEBUG :: Success : getUniqueQuestionTopics => ", results.rows[0])
 
     //contract.getFullQuestionInfo(...)
 
@@ -169,5 +169,7 @@ module.exports = {
   createQuestion,
   upvoteQuestion,
   downvoteQuestion,
-  getFullQuestionInfo
+  getFullQuestionInfo,
+  getQuestionsByTopic,
+  getUniqueQuestionTopics
 }
