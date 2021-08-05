@@ -8,15 +8,25 @@ import Topics from './topics/topics'
 
 const questions = props => {
     return (
-        <div className={styles.questions}>
-            <Topics />
-            <div className="questionsFeed">
-                <Question />
-                <Question />
-                <Question />
-                <Question />
+        <>
+            <div className={styles.actions}>
+                <select>
+                    <option>Most Recent</option>
+                    <option>Most Popular</option>
+                    <option>Highest Rated</option>
+                </select>
+                <button>Ask a Question</button>
             </div>
-        </div>
+            <div className={styles.questions}>
+                <Topics />
+                <div className="questionsFeed">
+                    <Question />
+                    <Question />
+                    <Question />
+                    <Question />
+                </div>
+            </div>
+        </>
     );
 };
 
