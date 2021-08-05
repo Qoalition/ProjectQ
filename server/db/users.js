@@ -16,16 +16,17 @@ const getUsers = (request, response) => {
 }
 
 const createUser = (request, response) => {
-  const { username, password, walletId } = request.body;
+  const { username, password, wallet_id } = request.body;
 
   const createUserQuery =
     `INSERT INTO users(username, password, wallet_id) \
-      VALUES ('${username}', '${password}', '${walletId}') \
+      VALUES ('${username}', '${password}', '${wallet_id}') \
       RETURNING user_id`
 
   db.query(createUserQuery, (error, results) => {
     if (error) {
-      throw error
+      response.status(400).json(error)
+      return;
     }
 
     console.log("DEBUG :: createUser => ", results)
