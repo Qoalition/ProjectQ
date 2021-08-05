@@ -12,38 +12,43 @@ const contract = new web3.eth.Contract(
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
 
-const upVoteQuestionByAddress = async (req, res) => {
-  const address = req.params.address.toString();
-  const questionContract = new web3.eth.Contract(questionAbi, address);
-  try {
-    const result = questionContract.methods
-      .upVoteQuestion()
-      .send({ from: await getAccount(), gas: 2000000 });
-    return res.send(result);
-  } catch (error) {
-    return res.send({ error: error.message });
+class RootQuestionsContract {
+  constructor() {
+    this.contract = contract;
+    this.accounts = accounts;
+    this.account = getAccount();
   }
-};
+
+  async addQuestion(questionId) {
+    return await contract.methods
+      .addQuestion(questionId)
+      .send({ from: await this.account, gas: 2000000 });
+  }
+
+  async getQuestions() {
+    return await contract.methods.getQuestions().call();
+  }
+}
+
+const rootContract = new RootQuestionsContract();
 
 const addQuestion = async (req, res) => {
   const questionId = req.params.id;
   try {
-    const result = await contract.methods
-      .addQuestion(questionId)
-      .send({ from: await getAccount(), gas: 2000000 });
+    const result = await rootContract.addQuestion(questionId);
     const { questionAddress } = result.events.QuestionCreated.returnValues;
     return res.send(result);
   } catch (error) {
-    return res.send({ error: error.message });
+    return res.send({ error });
   }
 };
 
 const getQuestions = async (req, res) => {
   try {
-    const result = await contract.methods.getQuestions().call();
+    const result = await rootContract.getQuestions();
     return res.send(result);
   } catch (error) {
-    return res.send({ error: error.message });
+    return res.send({ error: error });
   }
 };
 
@@ -64,6 +69,19 @@ const downVoteQuestionByIndex = async (req, res) => {
   try {
     const result = await contract.methods
       .downVoteQuestion(questionIndex)
+      .send({ from: await getAccount(), gas: 2000000 });
+    return res.send(result);
+  } catch (error) {
+    return res.send({ error: error.message });
+  }
+};
+
+const upVoteQuestionByAddress = async (req, res) => {
+  const address = req.params.address.toString();
+  const questionContract = new web3.eth.Contract(questionAbi, address);
+  try {
+    const result = questionContract.methods
+      .upVoteQuestion()
       .send({ from: await getAccount(), gas: 2000000 });
     return res.send(result);
   } catch (error) {
