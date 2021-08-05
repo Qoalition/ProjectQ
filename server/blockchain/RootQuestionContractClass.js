@@ -1,12 +1,13 @@
 class RootQuestionsContract {
-  constructor(contract, accounts) {
+  constructor(contract, accounts, accountIndex) {
     this.contract = contract;
     this.accounts = accounts;
+    this.accountIndex = accountIndex || 0;
     this.gas = 2000000;
   }
 
   async getAccount() {
-    return (await this.accounts)[0];
+    return (await this.accounts)[this.accountIndex];
   }
 
   async addQuestion(questionId) {
