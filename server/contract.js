@@ -15,7 +15,7 @@ class Contract {
   async contractInit() {
     // TRUFFLE CONFIG
     // if(process.env.CONTRACT_TESTNET === 'truffle') {
-    //   this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
+      this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545')); 
     //   console.log("CONNECTED TO TRUFFLE ", this.web3)
     // }
     // else if (process.env.CONTRACT_TESTNET === 'ganache') {
