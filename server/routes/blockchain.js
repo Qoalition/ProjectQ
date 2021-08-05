@@ -12,6 +12,6 @@ router.get("/getQuestions", getQuestions);
 router.get("/addQuestion/:id", addQuestion);
 router.get("/upVoteQuestionByIndex/:index", upVoteQuestionByIndex);
 router.get("/downVoteQuestionByIndex/:index", downVoteQuestionByIndex);
-router.get("/upVoteQuestionByAddress/:address", upVoteQuestionByAddress);
+router.get("/upVoteQuestionByAddress/:address", upVoteQuestionByAddress); // WIP
 
 module.exports = router;
