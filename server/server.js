@@ -8,15 +8,18 @@ const Web3 = require("web3");
 var dev = process.env.NODE_ENV !== "production";
 var app = next({ dev: dev });
 const { abi } = require("../build/contracts/RootQuestionsContract.json");
+const usersRouter = require("./routes/users");
+const questionsRouter = require("./routes/questions");
+const blockchainRouter = require("./routes/blockchain");
 
 app.prepare().then(function () {
   var server = express();
 
   server.use(bodyParser.json());
 
-  server.use("/users", require("./routes/users"));
-  server.use("/questions/", require("./routes/questions"));
-  server.use("/test", require('./routes/blockchain'));
+  server.use("/users", usersRouter);
+  server.use("/questions/", questionsRouter);
+  server.use("/test", blockchainRouter);
 
   server.get("*", function (req, res) {
     console.log("DEBUG :: ERROR => Received an unclaimed request");
