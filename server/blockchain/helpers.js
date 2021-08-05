@@ -1,5 +1,8 @@
 const Web3 = require("web3");
 const { abi } = require("../../build/contracts/RootQuestionsContract.json");
+const {
+  abi: questionAbi,
+} = require("../../build/contracts/QuestionContract.json");
 
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
@@ -8,6 +11,19 @@ const contract = new web3.eth.Contract(
 );
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
+
+const upVoteQuestionByAddress = async (req, res) => {
+  const address = req.params.address.toString();
+  const questionContract = new web3.eth.Contract(questionAbi, address);
+  try {
+    const result = questionContract.methods
+      .upVoteQuestion()
+      .send({ from: await getAccount(), gas: 2000000 });
+    return res.send(result);
+  } catch (error) {
+    return res.send({ error: error.message });
+  }
+};
 
 const addQuestion = async (req, res) => {
   // Change 2 to dynamic value passed in from previous middleware function
@@ -33,8 +49,7 @@ const getQuestions = async (req, res) => {
 };
 
 const upVoteQuestionByIndex = async (req, res) => {
-  // Update questionIndex value to be dynamic
-  const questionIndex = 0;
+  const questionIndex = req.params.index;
   try {
     const result = await contract.methods
       .upVoteQuestion(questionIndex)
@@ -46,8 +61,7 @@ const upVoteQuestionByIndex = async (req, res) => {
 };
 
 const downVoteQuestionByIndex = async (req, res) => {
-  // Update questionIndex value to be dynamic
-  const questionIndex = 0;
+  const questionIndex = req.params.index;
   try {
     const result = await contract.methods
       .downVoteQuestion(questionIndex)
@@ -63,4 +77,5 @@ module.exports = {
   getQuestions,
   upVoteQuestionByIndex,
   downVoteQuestionByIndex,
+  upVoteQuestionByAddress,
 };

@@ -13,6 +13,7 @@ const {
   getQuestions,
   upVoteQuestionByIndex,
   downVoteQuestionByIndex,
+  upVoteQuestionByAddress,
 } = require("./blockchain/helpers.js");
 
 app.prepare().then(function () {
@@ -24,8 +25,9 @@ app.prepare().then(function () {
   server.use("/questions/", require("./routes/questions"));
   server.get("/test/addQuestion", addQuestion);
   server.get("/test/getQuestions", getQuestions);
-  server.get("/test/upVoteQuestionByIndex", upVoteQuestionByIndex);
-  server.get("/test/downVoteQuestionByIndex", downVoteQuestionByIndex);
+  server.get("/test/upVoteQuestionByIndex/:index", upVoteQuestionByIndex);
+  server.get("/test/downVoteQuestionByIndex/:index", downVoteQuestionByIndex);
+  server.get("/test/upVoteQuestionByAddress/:address", upVoteQuestionByAddress);
 
   server.get("*", function (req, res) {
     console.log("DEBUG :: ERROR => Received an unclaimed request");
