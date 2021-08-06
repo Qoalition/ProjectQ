@@ -13,6 +13,6 @@ router.get("/upVoteQuestion/:address", upVoteQuestion);
 router.get("/getQuestionVotes/:address", getQuestionVotes);
 router.get("/downVoteQuestion/:address", downVoteQuestion);
 router.get("/getAnswers/:address", getAnswers);
-router.get("/addAnswer/:address", addAnswer);
+router.get("/addAnswer/:address/:id", addAnswer);
 
 module.exports = router;
