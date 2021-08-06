@@ -19,18 +19,6 @@ class RootQuestionsContract {
   async getQuestions() {
     return await this.contract.methods.getQuestions().call();
   }
-
-  async upVoteQuestionByIndex(questionIndex) {
-    return await this.contract.methods
-      .upVoteQuestion(questionIndex)
-      .send({ from: await this.getAccount(), gas: this.gas });
-  }
-
-  async downVoteQuestionByIndex(questionIndex) {
-    return await this.contract.methods
-      .downVoteQuestion(questionIndex)
-      .send({ from: await this.getAccount(), gas: this.gas });
-  }
 }
 
 module.exports = RootQuestionsContract;

@@ -3,15 +3,13 @@ const router = express.Router();
 const {
   addQuestion,
   getQuestions,
-  upVoteQuestionByIndex,
-  downVoteQuestionByIndex,
-  upVoteQuestionByAddress,
+  upVoteQuestion,
+  getQuestionVotes,
 } = require("../blockchain/helpers.js");
 
 router.get("/getQuestions", getQuestions);
 router.get("/addQuestion/:id", addQuestion);
-router.get("/upVoteQuestionByIndex/:index", upVoteQuestionByIndex);
-router.get("/downVoteQuestionByIndex/:index", downVoteQuestionByIndex);
-router.get("/upVoteQuestionByAddress/:address", upVoteQuestionByAddress); // WIP
+router.get("/upVoteQuestion/:address", upVoteQuestion); // WIP
+router.get("/getQuestionVotes/:address", getQuestionVotes) // WIP
 
 module.exports = router;

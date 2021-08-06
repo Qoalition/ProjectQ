@@ -8,7 +8,7 @@ const RootQuestionsContract = require("./RootQuestionContractClass.js");
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 const contract = new web3.eth.Contract(
   abi,
-  "0x73d2Db37d53B8c4Ae28DbeE411d5f4463Fb9E964"
+  "0x622D7Bb7f383609d2A6D24c237582CACE294ff15"
 );
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
@@ -37,34 +37,26 @@ const getQuestions = async (req, res) => {
   }
 };
 
-const upVoteQuestionByIndex = async (req, res) => {
-  const questionIndex = req.params.index;
-  try {
-    const result = await rootContract.upVoteQuestionByIndex(questionIndex);
-    return res.send(result);
-  } catch (error) {
-    return res.send({ error });
-  }
-};
-
-const downVoteQuestionByIndex = async (req, res) => {
-  const questionIndex = req.params.index;
-  try {
-    const result = await rootContract.downVoteQuestionByIndex(questionIndex);
-    return res.send(result);
-  } catch (error) {
-    return res.send({ error });
-  }
-};
-
-const upVoteQuestionByAddress = async (req, res) => {
-  const address = req.params.address.toString();
+const upVoteQuestion = async (req, res) => {
+  const address = req.params.address;
   const questionContract = new web3.eth.Contract(questionAbi, address);
   try {
-    const result = questionContract.methods
+    const result = await questionContract.methods
       .upVoteQuestion()
       .send({ from: await getAccount(), gas: 2000000 });
     return res.send(result);
+  } catch (error) {
+    return res.send({ error });
+  }
+};
+
+const getQuestionVotes = async (req, res) => {
+  const address = req.params.address;
+  const questionContract = new web3.eth.Contract(questionAbi, address);
+
+  try {
+    const result = await questionContract.methods.getQuestionVotes().call();
+    res.send(result);
   } catch (error) {
     return res.send({ error });
   }
@@ -76,4 +68,5 @@ module.exports = {
   upVoteQuestionByIndex,
   downVoteQuestionByIndex,
   upVoteQuestionByAddress,
+  getQuestionVotesByAddress,
 };
