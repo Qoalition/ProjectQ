@@ -1,16 +1,9 @@
-const { web3 } = require("../../config");
 const { abi } = require("../../../build/contracts/QuestionContract.json");
+const AbstractContractClass = require("./AbstractContractClass");
 
-class QuestionContract {
-  constructor(address, accountIndex = 0) {
-    this.contract = new web3.eth.Contract(abi, address);
-    this.accounts = web3.eth.getAccounts();
-    this.accountIndex = accountIndex;
-    this.gas = 2000000;
-  }
-
-  async getAccount() {
-    return (await this.accounts)[this.accountIndex];
+class QuestionContract extends AbstractContractClass {
+  constructor(address, accountIndex, gas) {
+    super(abi, address, accountIndex, gas);
   }
 
   async upVoteQuestion() {
