@@ -5,7 +5,7 @@ class AnswerContract extends AbstractContractClass {
   constructor(address, accountIndex, gas) {
     super(abi, address, accountIndex, gas);
   }
-  
+
   async getAnswerVotes() {
     return await this.contract.methods.getAnswerVotes().call();
   }

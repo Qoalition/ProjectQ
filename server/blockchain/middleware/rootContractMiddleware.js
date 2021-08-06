@@ -1,27 +1,27 @@
-
 const RootQuestionsContract = require("../classes/RootQuestionContractClass.js");
 const address = process.env.CONTRACT_ADDRESS;
 const rootContract = new RootQuestionsContract(address);
 
-// These functions are used for testing and building the blockchain functions
+const addQuestion = async (req, res, next) => {
+  const { questionId } = res.locals;
 
-const addQuestion = async (req, res) => {
-  const questionId = req.params.id;
   try {
     const result = await rootContract.addQuestion(questionId);
     const { questionAddress } = result.events.QuestionCreated.returnValues;
-    return res.send(result);
+    res.locals.questionAddress = questionAddress;
+    return next();
   } catch (error) {
-    return res.send({ error });
+    return next({ error });
   }
 };
 
-const getQuestions = async (req, res) => {
+const getQuestions = async (req, res, next) => {
   try {
     const result = await rootContract.getQuestions();
-    return res.send(result);
+    res.locals.questions = result;
+    return next();
   } catch (error) {
-    return res.send({ error: error });
+    return next({ error: error });
   }
 };
 

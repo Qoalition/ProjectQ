@@ -32,7 +32,7 @@ const getAnswerVotes = async (req, res) => {
 
   try {
     const result = await contract.getAnswerVotes();
-    res.send(result);
+    return res.send(result);
   } catch (error) {
     return res.send({ error });
   }
