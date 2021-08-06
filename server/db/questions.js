@@ -1,15 +1,14 @@
 const db = require('./db')
 
 const getAllQuestions = (request, response) => {
-  // const getAllQuestionsQuery =
-  //   'SELECT * \
-  //     FROM questions \
-  //     ORDER BY question_id ASC'
-
   const getAllQuestionsQuery =
-    'FROM questions \
+    `SELECT *, (SELECT count(*) FROM answers WHERE question_id=questions.question_id) as answer_count \ 
+      FROM questions \
       INNER JOIN users ON questions.user_id=users.user_id \
-      INNER JOIN answers ON questions.user_id=answers.user_id'
+      ORDER BY questions.question_id DESC`;
+
+      // LEFT JOIN answers \
+      // ON questions.answers_count = COUNT() 
 
   db.query(getAllQuestionsQuery, (error, results) => {
     if (error) {
@@ -23,11 +22,11 @@ const getAllQuestions = (request, response) => {
 }
 
 const createQuestion = (request, response) => {
-  const { question, user_id, topic } = request.body
-
+  const { question, question_bc_address, user_id, topic } = request.body
+  
   const createQuestionQuery =
-    `INSERT INTO questions(question, user_id, topic) \
-      VALUES ('${question}', ${user_id}, '${topic}') \
+    `INSERT INTO questions(question, question_bc_address, user_id, topic) \
+      VALUES ('${question}', '${question_bc_address}', ${user_id}, '${topic}') \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'next/image'
 
@@ -11,24 +11,27 @@ import Downvote from '../../icons/downvote'
 import Comment from '../../icons/comment'
 import Share from '../../icons/share'
 
-const question = props => {
+const question = ({ props }) => {
+    useEffect(() => {
+        // console.log(props)
+    })
     return (
         <div className={styles.question}>
             <header>
-                <div>username asks</div>
-                <h2>What does a question look like and how do you write one?</h2>
+                <div>{props.username} asks</div>
+                <h2>{props.question}</h2>
             </header>
-            <article>Will this be the top answer or a description to the question? Ultimately, just secondary text though to expand on the...</article>
+            <article>{props.question_description}</article>
             <footer>
                 <ul>
                     <li className={styles.active}>
-                        <Upvote type="question" id="" />
+                        <Upvote voteCount={props.num_upvotes > 0 ? props.num_upvotes : ''} type="question" id={props.question_id} />
                     </li>
                     <li>
-                        <Downvote type="question" id="" />
+                        <Downvote voteCount={props.num_downvotes > 0 ? props.num_downvotes : ''} type="question" id={props.question_id} />
                     </li>
                     <li>
-                        <Comment />
+                        <Comment answerCount={props.answer_count > 0 ? props.answerCount : ''} id={props.question_id} />
                     </li>
                     <li>
                         <Share />
