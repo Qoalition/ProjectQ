@@ -24,7 +24,8 @@ const question = ({ props }) => {
             <article>{props.question_description}</article>
             <footer>
                 <ul>
-                    <li className={styles.active}>
+                    <li>
+                        {/* className={styles.active} */}
                         <Upvote voteCount={props.num_upvotes} type="question" id={props.question_id} />
                     </li>
                     <li>

@@ -70,7 +70,7 @@ const questions = ({ allQuestions, topics }) => {
     useLayoutEffect(() => {
         const e = document.getElementById('modal')
         _payload.display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
-        // console.log(_payload);
+        console.log(_payload);
     }, [_payload.display])
 
     return (
@@ -101,7 +101,7 @@ const questions = ({ allQuestions, topics }) => {
                             name="question"
                             value={_payload.question}
                             onChange={handleChange}
-                            placeholder="Start your question with “What”, “Why”, “How”, etc."></textArea>
+                            placeholder="Start your question with “What”, “Why”, “How”, etc." />
                         <div>
                             <select
                                 name="topic"

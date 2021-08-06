@@ -45,6 +45,7 @@ const createQuestion = (request, response) => {
 
 const upvoteQuestion = (request, response) => {
   const { question_id } = request.body
+  console.log(request.body)
 
   // Upvote a question by question ID
   // Will have to consider overflow... but now now :)
