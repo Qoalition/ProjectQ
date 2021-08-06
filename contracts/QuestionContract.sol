@@ -63,16 +63,4 @@ contract QuestionContract {
     function getAnswers() external view returns(AnswerContract[] memory _answers) {
         _answers = answers;
     }
-    
-    function upVoteAnswer(uint answerIndex) public {
-        require(answerIndex >= 0, 'Answer not found');
-        require(answerIndex < answers.length, 'Answer not found');
-        answers[answerIndex].upVoteAnswer();
-    }
-
-    function downVoteAnswer(uint answerIndex) public {
-        require(answerIndex >= 0, 'Answer not found');
-        require(answerIndex < answers.length, 'Answer not found');
-        answers[answerIndex].downVoteAnswer();
-    }
 }

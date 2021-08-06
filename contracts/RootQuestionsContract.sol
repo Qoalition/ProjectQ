@@ -23,18 +23,6 @@ contract RootQuestionsContract {
     function getQuestions() external view returns(QuestionContract[] memory _questions) {
         _questions = questions;
     }
-
-    function upVoteQuestion(uint questionIndex) public {
-        require(questionIndex >= 0, 'Question not found');
-        require(questionIndex < questions.length, 'Question not found');
-        questions[questionIndex].upVoteQuestion();
-    }
-
-    function downVoteQuestion(uint questionIndex) public {
-        require(questionIndex >= 0, 'Question not found');
-        require(questionIndex < questions.length, 'Question not found');
-        questions[questionIndex].downVoteQuestion();
-    }
 }
 
 
