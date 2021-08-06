@@ -1,7 +1,7 @@
 const { web3 } = require("../../config");
-const { abi } = require("../../../build/contracts/RootQuestionsContract.json");
+const { abi } = require("../../../build/contracts/QuestionContract.json");
 
-class RootQuestionsContract {
+class QuestionContract {
   constructor(address, accountIndex = 0) {
     this.contract = new web3.eth.Contract(abi, address);
     this.accounts = web3.eth.getAccounts();
@@ -13,15 +13,15 @@ class RootQuestionsContract {
     return (await this.accounts)[this.accountIndex];
   }
 
-  async addQuestion(questionId) {
+  async upVoteQuestion() {
     return await this.contract.methods
-      .addQuestion(questionId)
+      .upVoteQuestion()
       .send({ from: await this.getAccount(), gas: this.gas });
   }
 
-  async getQuestions() {
-    return await this.contract.methods.getQuestions().call();
+  async getQuestionVotes() {
+    return await this.contract.methods.getQuestionVotes().call();
   }
 }
 
-module.exports = RootQuestionsContract;
+module.exports = QuestionContract;
