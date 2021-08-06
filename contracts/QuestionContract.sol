@@ -53,7 +53,7 @@ contract QuestionContract {
         upVotes = _question.upVotes;
         downVotes = _question.downVotes;
     }
-    
+
     function addAnswer(uint _id) external {
         AnswerContract answer = new AnswerContract(_id);
         answers.push(answer);
