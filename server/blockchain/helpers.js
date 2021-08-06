@@ -65,8 +65,6 @@ const getQuestionVotes = async (req, res) => {
 module.exports = {
   addQuestion,
   getQuestions,
-  upVoteQuestionByIndex,
-  downVoteQuestionByIndex,
-  upVoteQuestionByAddress,
-  getQuestionVotesByAddress,
+  upVoteQuestion,
+  getQuestionVotes,
 };
