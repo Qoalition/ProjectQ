@@ -11,6 +11,7 @@ const questionsRouter = require("./routes/questions");
 const answersRouter = require("./routes/answers");
 const rootContractRouter = require("./routes/rootContractRouter");
 const questionContractRouter = require("./routes/questionContractRouter");
+const answerContractRouter = require("./routes/answerContractRouter");
 
 app.prepare().then(function () {
   var server = express();
@@ -23,6 +24,7 @@ app.prepare().then(function () {
   // Keep for testing
   server.use("/rootContract", rootContractRouter);
   server.use("/questionContract", questionContractRouter);
+  server.use("/answerContract", answerContractRouter);
 
   server.get("*", function (req, res) {
     console.log("DEBUG :: Server Error => Recieved an unclaimed request");
