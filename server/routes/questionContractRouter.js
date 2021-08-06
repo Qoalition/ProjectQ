@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   upVoteQuestion,
   getQuestionVotes,
-} = require("../blockchain/questionContractHelpers.js");
+} = require("../blockchain/helpers/questionContractHelpers.js");
 
 router.get("/upVoteQuestion/:address", upVoteQuestion);
 router.get("/getQuestionVotes/:address", getQuestionVotes);

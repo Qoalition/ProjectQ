@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   addQuestion,
   getQuestions,
-} = require("../blockchain/rootContractHelpers.js");
+} = require("../blockchain/helpers/rootContractHelpers.js");
 
 router.get("/getQuestions", getQuestions);
 router.get("/addQuestion/:id", addQuestion);

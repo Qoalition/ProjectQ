@@ -1,8 +1,8 @@
 // Question contract stuff
-const { web3 } = require("../config");
+const { web3 } = require("../../config");
 const {
   abi: questionAbi,
-} = require("../../build/contracts/QuestionContract.json");
+} = require("../../../build/contracts/QuestionContract.json");
 const accounts = web3.eth.getAccounts();
 const getAccount = async () => (await accounts)[0];
 

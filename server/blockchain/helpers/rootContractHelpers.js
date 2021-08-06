@@ -1,5 +1,5 @@
 
-const RootQuestionsContract = require("./RootQuestionContractClass.js");
+const RootQuestionsContract = require("../classes/RootQuestionContractClass.js");
 const address = "0xF652733051367A1dB48D7C0E61F2144BdA52Fd60";
 const rootContract = new RootQuestionsContract(address);
 

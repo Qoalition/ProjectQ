@@ -1,5 +1,5 @@
-const { web3 } = require("../config");
-const { abi } = require("../../build/contracts/RootQuestionsContract.json");
+const { web3 } = require("../../config");
+const { abi } = require("../../../build/contracts/RootQuestionsContract.json");
 
 class RootQuestionsContract {
   constructor(address, accountIndex) {
