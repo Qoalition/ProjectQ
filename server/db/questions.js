@@ -23,11 +23,11 @@ const getAllQuestions = (request, response) => {
 }
 
 const createQuestion = (request, response) => {
-  const { question, user_id, topic } = request.body
+  const { question, question_description, question_bc_address, topic, user_id } = request.body
 
   const createQuestionQuery =
-    `INSERT INTO questions(question, user_id, topic) \
-      VALUES ('${question}', ${user_id}, '${topic}') \
+    `INSERT INTO questions(question, question_description, question_bc_address, topic, user_id) \
+      VALUES ('${question}', '${question_description}', '${question_bc_address}', ${topic}, '${user_id}') \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {
