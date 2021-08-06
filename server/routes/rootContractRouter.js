@@ -5,7 +5,7 @@ const {
   getQuestions,
   upVoteQuestion,
   getQuestionVotes,
-} = require("../blockchain/helpers.js");
+} = require("../blockchain/rootContractHelpers.js");
 
 router.get("/getQuestions", getQuestions);
 router.get("/addQuestion/:id", addQuestion);
