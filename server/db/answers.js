@@ -5,7 +5,7 @@ const createAnswer = (request, response) => {
 
   // Create an answer to a question from a given user
   const createAnswerQuery =
-    `INSERT INTO answers(answer, question_id, user_id) \
+    `INSERT INTO answers(answer, answer_bc_address, question_id, user_id) \
       VALUES ('${answer}', ${answer_bc_address}, ${question_id}, ${user_id}) \
       RETURNING answer_id`
 
