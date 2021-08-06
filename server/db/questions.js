@@ -24,10 +24,10 @@ const getAllQuestions = (request, response) => {
 
 const createQuestion = (request, response) => {
   const { question, question_description, question_bc_address, topic, user_id } = request.body
-
+  console.log('question, question_description, question_bc_address, topic, user_id', question, question_description, question_bc_address, topic, user_id);
   const createQuestionQuery =
     `INSERT INTO questions(question, question_description, question_bc_address, topic, user_id) \
-      VALUES ('${question}', '${question_description}', '${question_bc_address}', ${topic}, '${user_id}') \
+      VALUES ('${question}', '${question_description}', ${question_bc_address}, '${topic}', ${user_id}) \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {
