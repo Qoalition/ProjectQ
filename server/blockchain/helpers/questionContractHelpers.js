@@ -32,7 +32,7 @@ const getQuestionVotes = async (req, res) => {
 
   try {
     const result = await contract.getQuestionVotes();
-    res.send(result);
+    return res.send(result);
   } catch (error) {
     return res.send({ error });
   }
@@ -44,7 +44,7 @@ const getAnswers = async (req, res) => {
 
   try {
     const result = await contract.getAnswers();
-    res.send(result);
+    return res.send(result);
   } catch (error) {
     return res.send({ error });
   }
@@ -52,12 +52,12 @@ const getAnswers = async (req, res) => {
 
 const addAnswer = async (req, res) => {
   const address = req.params.address;
-  const questionId = req.params.id;
+  const answerId = req.params.id;
   const contract = new QuestionContract(address)
 
   try {
-    const result = await contract.addAnswer(questionId);
-    res.send(result);
+    const result = await contract.addAnswer(answerId);
+    return res.send(result);
   } catch (error) {
     return res.send({ error });
   }
