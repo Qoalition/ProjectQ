@@ -2,7 +2,7 @@ const db = require('./db')
 
 const getAllQuestions = (request, response) => {
   const getAllQuestionsQuery =
-    `SELECT *, (SELECT count(*) FROM answers WHERE question_id=questions.question_id) as answer_count \ 
+    `SELECT *, (SELECT count(*)::int FROM answers WHERE question_id=questions.question_id) as answer_count \ 
       FROM questions \
       INNER JOIN users ON questions.user_id=users.user_id \
       ORDER BY questions.question_id DESC`;

@@ -9,13 +9,19 @@ import Close from '../icons/close'
 import Router from 'next/router'
 
 const questions = ({ allQuestions, topics }) => {
-    const [_payload, setPayload] = useState({
+    const initialState = {
         display: false,
         question: '',
-        question_bc_address: ((Math.random() * 100) * (Math.random() * 100)).toString(),
+        question_bc_address: randomNumber(),
         user_id: 1,
         topic: ''
-    })
+    }
+
+    const [_payload, setPayload] = useState(initialState);
+
+    function randomNumber() {
+        return ((Math.random() * 100) * (Math.random() * 100)).toString()
+    }
 
     function openModal(e) {
         e.preventDefault()
@@ -24,10 +30,7 @@ const questions = ({ allQuestions, topics }) => {
 
     function postQuestion(e) {
         e.preventDefault()
-        // const num = (Math.random(0, 1) * 100) * (Math.random(0, 1) * 100);
-        // const bc = num.toString();
-        // console.log(bc);
-        // setPayload({..._payload, question_bc_address: bc});
+
         console.log(_payload);
         fetch('http://localhost:5000/questions/create',
         {
@@ -41,8 +44,8 @@ const questions = ({ allQuestions, topics }) => {
         })
         .then( res => res.json() )
         .then( data => {
-            console.log(data);
-            setPayload({..._payload, display: false});
+            setPayload({...initialState, question_bc_address: randomNumber()});
+            document.getElementById('questionField').value = '';
             Router.push('/');
         })
         .catch((err) => {
@@ -67,6 +70,7 @@ const questions = ({ allQuestions, topics }) => {
     useLayoutEffect(() => {
         const e = document.getElementById('modal')
         _payload.display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
+        // console.log(_payload);
     }, [_payload.display])
 
     return (
@@ -93,6 +97,7 @@ const questions = ({ allQuestions, topics }) => {
                     </header>
                     <fieldset>
                         <textArea 
+                            id="questionField"
                             name="question"
                             value={_payload.question}
                             onChange={handleChange}

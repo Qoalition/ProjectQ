@@ -18,20 +18,20 @@ const question = ({ props }) => {
     return (
         <div className={styles.question}>
             <header>
-                <div>{props.username} asks</div>
+                <div>{props.username} asks in {props.topic}</div>
                 <h2>{props.question}</h2>
             </header>
             <article>{props.question_description}</article>
             <footer>
                 <ul>
                     <li className={styles.active}>
-                        <Upvote voteCount={props.num_upvotes > 0 ? props.num_upvotes : ''} type="question" id={props.question_id} />
+                        <Upvote voteCount={props.num_upvotes} type="question" id={props.question_id} />
                     </li>
                     <li>
-                        <Downvote voteCount={props.num_downvotes > 0 ? props.num_downvotes : ''} type="question" id={props.question_id} />
+                        <Downvote voteCount={props.num_downvotes} type="question" id={props.question_id} />
                     </li>
                     <li>
-                        <Comment answerCount={props.answer_count > 0 ? props.answerCount : ''} id={props.question_id} />
+                        <Comment answerCount={props.answer_count} id={props.question_id} />
                     </li>
                     <li>
                         <Share />
