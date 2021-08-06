@@ -22,11 +22,11 @@ const getAllQuestions = (request, response) => {
 }
 
 const createQuestion = (request, response) => {
-  const { question, question_bc_address, user_id, topic } = request.body
-  
+  const { question, question_description, question_bc_address, topic, user_id } = request.body
+  console.log('question, question_description, question_bc_address, topic, user_id', question, question_description, question_bc_address, topic, user_id);
   const createQuestionQuery =
-    `INSERT INTO questions(question, question_bc_address, user_id, topic) \
-      VALUES ('${question}', '${question_bc_address}', ${user_id}, '${topic}') \
+    `INSERT INTO questions(question, question_description, question_bc_address, topic, user_id) \
+      VALUES ('${question}', '${question_description}', ${question_bc_address}, '${topic}', ${user_id}) \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {
@@ -35,7 +35,7 @@ const createQuestion = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : createQuestion => ", results.rows[0].question_id)
+    // console.log("DEBUG :: Success : createQuestion => ", results.rows[0].question_id)
 
     //contract.createQuestion(results.rows[0].question_id)
 
@@ -60,7 +60,7 @@ const upvoteQuestion = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : upvoteQuestion => ", results.rows[0].question_id)
+    // console.log("DEBUG :: Success : upvoteQuestion => ", results.rows[0].question_id)
 
     //contract.upvoteQuestion(...)
 

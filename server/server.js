@@ -9,7 +9,9 @@ var app = next({ dev: dev });
 const usersRouter = require("./routes/users");
 const questionsRouter = require("./routes/questions");
 const answersRouter = require("./routes/answers");
-// const blockchainRouter = require("./routes/blockchain");
+// const rootContractRouter = require("./routes/rootContractRouter");
+// const questionContractRouter = require("./routes/questionContractRouter");
+// const answerContractRouter = require("./routes/answerContractRouter");
 
 app.prepare().then(function () {
   var server = express();
@@ -39,7 +41,9 @@ app.prepare().then(function () {
   server.use("/questions", questionsRouter);
   server.use("/answers", answersRouter);
   // Keep for testing
-  // server.use("/test", blockchainRouter);
+  // server.use("/rootContract", rootContractRouter);
+  // server.use("/questionContract", questionContractRouter);
+  // server.use("/answerContract", answerContractRouter);
 
   server.get("*", function (req, res) {
     console.log("DEBUG :: Server Error => Recieved an unclaimed request");
