@@ -11,7 +11,7 @@ contract RootQuestionsContract {
     constructor() {
         manager = msg.sender;
     }
-    
+
     function addQuestion(uint _id) public returns(QuestionContract _q){
         QuestionContract question = new QuestionContract(_id);
         questions.push(question);
@@ -19,21 +19,9 @@ contract RootQuestionsContract {
         _q = question;
         return _q;
     }
-    
+
     function getQuestions() external view returns(QuestionContract[] memory _questions) {
         _questions = questions;
-    }
-    
-    function upVoteQuestion(uint questionIndex) public {
-        require(questionIndex >= 0, 'Question not found');
-        require(questionIndex < questions.length, 'Question not found');
-        questions[questionIndex].upVoteQuestion();
-    }
-
-    function downVoteQuestion(uint questionIndex) public {
-        require(questionIndex >= 0, 'Question not found');
-        require(questionIndex < questions.length, 'Question not found');
-        questions[questionIndex].downVoteQuestion();
     }
 }
 

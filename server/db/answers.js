@@ -1,12 +1,12 @@
 const db = require('./db')
 
 const createAnswer = (request, response) => {
-  const { answer, question_id, user_id } = request.body
+  const { answer, answer_bc_address, question_id, user_id } = request.body
 
   // Create an answer to a question from a given user
   const createAnswerQuery =
-    `INSERT INTO answers(answer, question_id, user_id) \
-      VALUES ('${answer}', ${question_id}, ${user_id}) \
+    `INSERT INTO answers(answer, answer_bc_address, question_id, user_id) \
+      VALUES ('${answer}', ${answer_bc_address}, ${question_id}, ${user_id}) \
       RETURNING answer_id`
 
   db.query(createAnswerQuery, (error, results) => {
