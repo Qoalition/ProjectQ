@@ -22,12 +22,11 @@ const getAllQuestions = (request, response) => {
   })
 }
 
-const createQuestion = (request, response) => {
-  const { question, question_description, question_bc_address, topic, user_id } = request.body
-  console.log('question, question_description, question_bc_address, topic, user_id', question, question_description, question_bc_address, topic, user_id);
+const createQuestion = (request, response, next) => {
+  const { question, question_description, topic, user_id } = request.body
   const createQuestionQuery =
-    `INSERT INTO questions(question, question_description, question_bc_address, topic, user_id) \
-      VALUES ('${question}', '${question_description}', ${question_bc_address}, '${topic}', ${user_id}) \
+    `INSERT INTO questions(question, question_description, topic, user_id) \
+      VALUES ('${question}', '${question_description}','${topic}', ${user_id}) \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {
@@ -35,12 +34,21 @@ const createQuestion = (request, response) => {
       response.status(400).json(error)
       return;
     }
+    response.locals.response = results.rows[0];
+    response.locals.questionId = results.rows[0].question_id;
+    next();
+  })
+}
 
-    console.log("DEBUG :: Success : createQuestion => ", results.rows[0].question_id)
+const saveQuestionAddress = (request, response, next) => {
+  console.log('inside saveQuestionAddress');
+  const saveQuestionAddressQuery =
+    `UPDATE questions SET question_bc_address = '${response.locals.questionAddress}' \
+      WHERE question_id = ${response.locals.questionId}`
 
-    //contract.createQuestion(results.rows[0].question_id)
-
-    response.status(200).json(results.rows)
+  db.query(saveQuestionAddressQuery, (error, results) => {
+    if (error) return response.status(400).json(error);
+    next();
   })
 }
 
@@ -170,5 +178,6 @@ module.exports = {
   downvoteQuestion,
   getFullQuestionInfo,
   getQuestionsByTopic,
-  getUniqueQuestionTopics
+  getUniqueQuestionTopics,
+  saveQuestionAddress,
 }
