@@ -122,8 +122,7 @@ const questions = ({ allQuestions, usedTopics }) => {
     }
 
     useEffect(() => {
-        setPayload({..._payload, questions: allQuestions})
-        // console.log(_payload)
+        getQuestions();
     }, [allQuestions])
 
     return (

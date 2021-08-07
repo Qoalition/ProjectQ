@@ -104,8 +104,6 @@ const getFullQuestionInfo = (request, response) => {
     `SELECT * FROM questions
       INNER JOIN users
         ON questions.user_id = users.user_id
-      INNER JOIN answers
-        ON questions.user_id = answers.answer_id
       WHERE questions.question_id = ${question_id}`
 
   db.query(getFullQuestionInfoQuery, (error, results) => {

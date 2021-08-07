@@ -12,8 +12,8 @@ const Post = ({ question }) => {
     const { pid } = router.query
 
     useEffect(() => {
-        console.log(pid);
-        console.log(question)
+        // console.log(pid);
+        // console.log(question)
     })
 
     return (
@@ -37,7 +37,7 @@ const Post = ({ question }) => {
 };
 
 Post.getInitialProps = async ({ query: {pid} }) => {
-    console.log(pid)
+    // console.log(pid)
     const headers = {
         method: "POST",
         mode: 'cors',
