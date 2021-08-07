@@ -1,15 +1,11 @@
 const db = require('./db')
 
 const getAllQuestions = (request, response) => {
-  // const getAllQuestionsQuery =
-  //   'SELECT * \
-  //     FROM questions \
-  //     ORDER BY question_id ASC'
-
   const getAllQuestionsQuery =
-    'FROM questions \
-      INNER JOIN users ON questions.user_id=users.user_id \
-      INNER JOIN answers ON questions.user_id=answers.user_id'
+    'SELECT *, (SELECT count(*) FROM answers WHERE question_id=questions.question_id) as answer_count \
+    FROM questions \
+    INNER JOIN users ON questions.user_id=users.user_id \
+    ORDER BY questions.question_id ASC'
 
   db.query(getAllQuestionsQuery, (error, results) => {
     if (error) {

@@ -26,21 +26,37 @@ const createAnswer = (request, response, next) => {
     // Check this works
     db.query(getAnswerAddress, (error, results) => {
 
-      res.locals.address = results.rows[0].question_bc_address
+      response.locals.address = results.rows[0].question_bc_address
+      console.log('res.locals.address', response.locals.address);
       next();
     });
   })
 }
 
-const upvoteAnswer = (request, response) => {
+const saveAnswerAddress = (request, response, next) => {
+  console.log('inside saveAnswerAddress:', response.locals.answerAddress);
+  console.log('inside saveAnswerAddress:', response.locals.answerId);
+
+  const saveAnswerAddressQuery =
+    `UPDATE answers SET answer_bc_address = '${response.locals.answerAddress}' \
+      WHERE answer_id = ${response.locals.answerId}`
+
+  db.query(saveAnswerAddressQuery, (error, results) => {
+    if (error) return response.status(400).json(error);
+    next();
+  })
+}
+
+const upvoteAnswer = (request, response, next) => {
   const { answer_id } = request.body
 
   // Upvote an answer by answerID
   // Will have to consider overflow... but now now :)
   const upvoteAnswerQuery =
-    `UPDATE answers
-      SET num_upvotes = num_upvotes + 1
-        WHERE answer_id = ${answer_id}`
+    `UPDATE answers \
+      SET num_upvotes = num_upvotes + 1 \
+        WHERE answer_id = ${answer_id} \
+        RETURNING num_upvotes, answer_bc_address`
 
   db.query(upvoteAnswerQuery, (error, results) => {
     if (error) {
@@ -48,23 +64,23 @@ const upvoteAnswer = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : upvoteAnswer => ", results.rows[0].answer_id)
+    console.log("DEBUG :: Success : upvoteAnswer => ", results.rows[0])
 
-    //contract.upvoteAnswer(...)
-
-    response.status(200).json(results.rows)
+    response.locals.response = results.rows[0];
+    response.locals.address = results.rows[0].answer_bc_address;
+    next();
   })
 }
 
-const downvoteAnswer = (request, response) => {
+const downvoteAnswer = (request, response, next) => {
   const { answer_id } = request.body
 
   // Downvote an answer by answer_id
   const downvoteAnswerQuery =
-    `UPDATE answers
-      SET num_upvotes = num_upvotes - 1
-        WHERE answer_id = ${answer_id}
-        AND num_upvotes > 0`
+    `UPDATE answers \
+      SET num_downvotes = num_downvotes + 1 \
+        WHERE answer_id = ${answer_id} \
+        RETURNING num_downvotes, answer_bc_address`
 
   db.query(downvoteAnswerQuery, (error, results) => {
     if (error) {
@@ -72,16 +88,17 @@ const downvoteAnswer = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : downvoteAnswer => ", results.rows[0].answer_id)
+    console.log("DEBUG :: Success : downvoteAnswer => ", results.rows[0])
 
-    //contract.downvoteAnswer(...)
-
-    response.status(200).json(results.rows)
+    response.locals.response = results.rows[0];
+    response.locals.address = results.rows[0].answer_bc_address;
+    next();
   })
 }
 
 module.exports = {
   createAnswer,
   upvoteAnswer,
-  downvoteAnswer
+  downvoteAnswer,
+  saveAnswerAddress
 }

@@ -1,8 +1,6 @@
 "use strict";
 var next = require("next");
 const express = require("express");
-const bodyParser = require("body-parser");
-// var express = require('express-observer');
 const Web3 = require("web3");
 var dev = process.env.NODE_ENV !== "production";
 var app = next({ dev: dev });

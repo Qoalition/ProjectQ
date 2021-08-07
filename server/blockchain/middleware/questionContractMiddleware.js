@@ -56,13 +56,15 @@ const getAnswers = async (req, res, next) => {
 const addAnswer = async (req, res, next) => {
   const { address } = res.locals;
   const { answerId } = res.locals;
+  console.log('address => ', address);
+  console.log('answerId => ', answerId);
   const contract = new QuestionContract(address);
-  
+
   try {
     const result = await contract.addAnswer(answerId);
-    const { answerAddress } = result.events.QuestionCreated.returnValues;
+    const { answerAddress } = result.events.AnswerCreated.returnValues;
     res.locals.answerAddress = answerAddress
-    return next(result);
+    return next();
   } catch (error) {
     return next({ error });
   }
