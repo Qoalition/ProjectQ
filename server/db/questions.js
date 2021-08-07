@@ -13,7 +13,6 @@ const getAllQuestions = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : getAllQuestions => ", results.rows)
     response.status(200).json(results.rows)
   })
 }
@@ -30,6 +29,8 @@ const createQuestion = (request, response, next) => {
       response.status(400).json(error)
       return;
     }
+
+    // Store the response and question ID for the blockchain middleware
     response.locals.response = results.rows[0];
     response.locals.questionId = results.rows[0].question_id;
     next();
@@ -37,7 +38,6 @@ const createQuestion = (request, response, next) => {
 }
 
 const saveQuestionAddress = (request, response, next) => {
-  console.log('inside saveQuestionAddress');
   const saveQuestionAddressQuery =
     `UPDATE questions SET question_bc_address = '${response.locals.questionAddress}' \
       WHERE question_id = ${response.locals.questionId}`
@@ -52,12 +52,12 @@ const upvoteQuestion = (request, response, next) => {
   const { question_id } = request.body
 
   // Upvote a question by question ID
-  // Will have to consider overflow... but now now :)
+  // Will have to consider overflow... but not now :)
   const upvoteQuestionQuery =
     `UPDATE questions
       SET num_upvotes = num_upvotes + 1
         WHERE question_id = ${question_id}
-          RETURNING num_upvotes, question_bc_address`
+      RETURNING num_upvotes, question_bc_address`
 
   db.query(upvoteQuestionQuery, (error, results) => {
     if (error) {
@@ -65,6 +65,7 @@ const upvoteQuestion = (request, response, next) => {
       return;
     }
 
+    // Store the response and question blockchain address for the blockchain middleware
     response.locals.response = results.rows[0];
     response.locals.address = results.rows[0].question_bc_address;
     next();
@@ -79,7 +80,7 @@ const downvoteQuestion = (request, response, next) => {
     `UPDATE questions
       SET num_downvotes = num_downvotes + 1
         WHERE question_id = ${question_id}
-          RETURNING num_upvotes, question_bc_address`
+      RETURNING num_upvotes, question_bc_address`
 
   db.query(downvoteQuestionQuery, (error, results) => {
     if (error) {
@@ -87,6 +88,7 @@ const downvoteQuestion = (request, response, next) => {
       return;
     }
 
+    // Store the response and question blockchain address for the blockchain middleware
     response.locals.response = results.rows[0];
     response.locals.address = results.rows[0].question_bc_address;
     next();
@@ -111,10 +113,6 @@ const getFullQuestionInfo = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : getFullQuestionInfo => ", results.rows[0].question_id)
-
-    //contract.getFullQuestionInfo(...)
-
     response.status(200).json(results.rows)
   })
 }
@@ -125,7 +123,7 @@ const getQuestionsByTopic = (request, response) => {
   // Get all the questions of a specific topic
   const getQuestionsByTopicQuery =
     `SELECT * FROM questions
-      WHERE topic = ${topic_id}`
+      WHERE topic = ${topic}`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {
@@ -133,17 +131,11 @@ const getQuestionsByTopic = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : getQuestionsByTopic => ", results.rows[0])
-
-    //contract.getFullQuestionInfo(...)
-
     response.status(200).json(results.rows)
   })
 }
 
 const getUniqueQuestionTopics = (request, response) => {
-  const { topic } = request.body
-
   // Get all unique topics of questions
   const getQuestionsByTopicQuery =
     `SELECT
@@ -155,10 +147,6 @@ const getUniqueQuestionTopics = (request, response) => {
       response.status(400).json(error)
       return;
     }
-
-    console.log("DEBUG :: Success : getUniqueQuestionTopics => ", results.rows[0])
-
-    //contract.getFullQuestionInfo(...)
 
     response.status(200).json(results.rows)
   })
