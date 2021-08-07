@@ -10,14 +10,14 @@ import Downvote from '../../icons/downvote'
 import Comment from '../../icons/comment'
 import Share from '../../icons/share'
 
-const question = ({ props }) => {
+const question = ({ props, showHeader }) => {
     useEffect(() => {
         console.log(props)
     })
     return (
         <div className={styles.question}>
             <header>
-                <div><strong>{props.username} asks</strong>{ props.showHeader ?  `in ${props.topic}` : ''}</div>
+                <div><strong>{props.username} asks</strong>{ showHeader ?  ` in ${props.topic}` : ''}</div>
                <Link href={`/question/${props.question_id}`}><h2>{props.question}</h2></Link>
             </header>
             { props.question_description ? <article>{props.question_description}</article> : '' }

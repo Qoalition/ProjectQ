@@ -138,7 +138,7 @@ const questions = ({ allQuestions, usedTopics }) => {
             <div className={styles.questions}>
                 { usedTopics ? <Topics topics={usedTopics} callback={changeTopic} /> : ''}
                 <div className="questionsFeed">
-                    {_payload.questions.map(e =><Question props={e} key={Math.random(0, 100)} />)}
+                    {_payload.questions.map(e =><Question props={e} showHeader={true} key={Math.random(0, 100)} />)}
                 </div>
             </div>
             <Modal 

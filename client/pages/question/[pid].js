@@ -24,7 +24,7 @@ const Post = ({ question }) => {
                 margin: 'auto'
             }}>
                 <Tags topic={question[0].topic}/>
-                <Question props={question[0]} showHeader={false} />
+                <Question props={question[0]} />
                 <hr />
                 100 Answers
                 <hr />
