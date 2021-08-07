@@ -1,6 +1,7 @@
 # ProjectQ
 
 - [ProjectQ](#projectq)
+  - [Connect to the shared testnet](#connect-to-the-shared-testnet)
   - [Setup Instructions:](#setup-instructions)
   - [Database setup](#database-setup)
   - [Database trouble shooting](#database-trouble-shooting)
@@ -12,6 +13,20 @@
 Qoalition is a decentralised blockchain community for curious minds!
 
 With Qoalition, you can earn while you learn! Ask and answer questions on Qoaltion and get paid in crypto currency.
+
+## Connect to the shared testnet
+
+- Make sure you have run `npm i` first.
+
+1. Install the google chrome extension metamask.
+2. Get ethereum sent to your account via faucet.
+3. Get your mnemonic from metamask.
+4. Add the following properties to your `.env`: (you must use this contract address and url)
+```
+CONTRACT_ADDRESS = '0x1e2f81ab6a47B7343B7a3bcFf9f4F32FC0010938'
+MNEMONIC = <your_mnemonic_here>
+RINKEBY_URL = 'https://rinkeby.infura.io/v3/59160a1ec5014a329992ab35736ce757'
+```
 
 ## Setup Instructions:
 
