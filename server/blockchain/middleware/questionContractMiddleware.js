@@ -2,6 +2,7 @@ const QuestionContract = require("../classes/QuestionContractClass");
 
 const upVoteQuestion = async (req, res, next) => {
   const { address } = res.locals;
+  if (!address) next();
   const contract = new QuestionContract(address);
 
   try {
@@ -14,6 +15,7 @@ const upVoteQuestion = async (req, res, next) => {
 
 const downVoteQuestion = async (req, res, next) => {
   const { address } = res.locals;
+  if (!address) next();
   const contract = new QuestionContract(address);
 
   try {
@@ -54,13 +56,14 @@ const getAnswers = async (req, res, next) => {
 const addAnswer = async (req, res, next) => {
   const { address } = res.locals;
   const { answerId } = res.locals;
+
   const contract = new QuestionContract(address);
-  
+
   try {
     const result = await contract.addAnswer(answerId);
-    const { answerAddress } = result.events.QuestionCreated.returnValues;
+    const { answerAddress } = result.events.AnswerCreated.returnValues;
     res.locals.answerAddress = answerAddress
-    return next(result);
+    return next();
   } catch (error) {
     return next({ error });
   }

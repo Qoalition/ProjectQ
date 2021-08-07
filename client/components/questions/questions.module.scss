@@ -8,11 +8,12 @@
         display: grid;
         grid-template-rows: auto;
         row-gap: 4.75rem;
+        height: fit-content;
     }
 }
 .actions {
     position: relative;
-    top: -4.75rem;
+    top: -5.75rem;
     width: 100%;
     max-width: 48rem;
     margin: 2rem auto 0;
@@ -20,18 +21,18 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    button {
-        background-color: transparent;
-        border: 2px solid #fff;
-        color: #fff;
-        border-radius: 24px;
-        padding: 0.5rem 1rem;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: all 320ms ease-in-out;
-        &:hover {
-            background-color:rgba(255,255,255,1);
-            color: #151517;
-        }
+    
+}
+
+@media screen and (max-width: 1200px) {
+    .actions {
+        top: 0;
+        margin-bottom: 2rem;
     }
+}
+
+@media screen and (max-width: 768px) {
+    .questions {
+        display: block;
+    }   
 }

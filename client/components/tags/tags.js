@@ -1,20 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './tags.module.scss'
 
-const tags = props => {
+const tags = ({ topic }) => {
     return (
         <ul className={styles.tags}>
-            { /* Tags */ }
-            <li>Psychology</li>
-            <li>Behavior</li>
+            <li>{topic}</li>
         </ul>
     );
-};
-
-tags.propTypes = {
-    
 };
 
 export default tags;
