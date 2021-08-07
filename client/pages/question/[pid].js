@@ -47,9 +47,14 @@ Post.getInitialProps = async ({ query: {pid} }) => {
         },
         body: JSON.stringify({ question_id: pid })
     }
-    const res = await fetch('http://localhost:5000/questions/getFullDetails', headers)
-    const json = await res.json()
-    return { question: json }
+    try {
+      const res = await fetch('http://localhost:5000/questions/getFullDetails', headers)
+      const json = await res.json()
+      return { question: json }
+    } catch (err) {
+      console.log(`err`, err);
+      return {}
+    }
   }
 
 export default Post;

@@ -15,11 +15,15 @@ const Feed = ( props ) => {
 };
 
 const data = Feed.getInitialProps = async (ctx) => {
-    const [ questions, topics ] = await Promise.all([
+    try {
+      const [ questions, topics ] = await Promise.all([
         fetch('http://localhost:5000/questions/get', {method: 'GET', mode: 'cors'}).then(r => r.json()),
         fetch('http://localhost:5000/questions/getUniqueTopics', {method: 'GET', mode: 'cors'}).then(r => r.json())
-    ])
-    return { questions, topics }
+      ])
+      return { questions, topics };
+    } catch (error) {
+      return { questions: [], topics: [] }
+    }
 }
 
 export default Feed;

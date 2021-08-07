@@ -4,6 +4,10 @@ import React, { useEffect } from 'react'
 import styles from './topics.module.scss'
 
 const topics = ({ topics, callback }) => {
+    let topicsArray = [];
+    if (Array.isArray(topics)) {
+      topicsArray = topics;
+    }
     useEffect(() => {
         // console.log(topics);
     })
@@ -12,7 +16,7 @@ const topics = ({ topics, callback }) => {
             <ul>
                 <li onClick={(e) => callback(e)} key="x" className={styles.active}>All Topics</li>
                 {
-                    topics.map((e, i) => {
+                    (topicsArray || []).map((e, i) => {
                         return <li onClick={(e) => callback(e)} key={i}>{e.topic}</li>
                     })
                 }
