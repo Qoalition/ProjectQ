@@ -12,9 +12,11 @@ class AbstractContractClass {
     this.accounts = web3.eth.getAccounts();
     this.accountIndex = accountIndex;
     this.gas = gas;
+    this.getAccount()
   }
 
   async getAccount() {
+    console.log(`await this.accounts`, await this.accounts);
     return (await this.accounts)[this.accountIndex];
   }
 }

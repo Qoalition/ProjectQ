@@ -1,4 +1,5 @@
 const Web3 = require("web3");
+var HDWalletProvider = require("truffle-hdwallet-provider");
 
   /**
   * @dev Get the web3 provider for hooking the app up to a blockchain instance:
