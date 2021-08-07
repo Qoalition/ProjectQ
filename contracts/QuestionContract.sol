@@ -30,7 +30,7 @@ contract QuestionContract {
     }
 
     function upVoteQuestion() public {
-        require(upVoters[tx.origin] == false, 'You can only vote once');
+        // require(upVoters[tx.origin] == false, 'You can only vote once');
         _question.upVotes += 1;
         upVoters[tx.origin] = true;
         if (downVoters[tx.origin]) {
@@ -40,7 +40,7 @@ contract QuestionContract {
     }
 
     function downVoteQuestion() public {
-        require(downVoters[tx.origin] == false, 'You can only vote once');
+        // require(downVoters[tx.origin] == false, 'You can only vote once');
         _question.downVotes += 1;
         downVoters[tx.origin] = true;
         if (upVoters[tx.origin]) {
