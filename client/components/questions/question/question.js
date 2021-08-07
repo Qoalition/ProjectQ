@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Image from 'next/image'
+import Link from 'next/link'
 
 // SCSS Module
 import styles from './question.module.scss'
@@ -18,10 +17,10 @@ const question = ({ props }) => {
     return (
         <div className={styles.question}>
             <header>
-                <div>{props.username} asks in {props.topic}</div>
-                <h2>{props.question}</h2>
+                <div><strong>{props.username} asks</strong>{ props.showHeader ?  `in ${props.topic}` : ''}</div>
+               <Link href={`/question/${props.question_id}`}><h2>{props.question}</h2></Link>
             </header>
-            <article>{props.question_description}</article>
+            { props.question_description ? <article>{props.question_description}</article> : '' }
             <footer>
                 <ul>
                     <li>
@@ -41,10 +40,6 @@ const question = ({ props }) => {
             </footer>
         </div>
     );
-};
-
-question.propTypes = {
-    
 };
 
 export default question;

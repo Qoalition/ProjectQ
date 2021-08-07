@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Link from 'next/link'
 
 import Image from 'next/image'
 import logo from '../../public/Q.svg';
@@ -11,7 +11,7 @@ const header = props => {
     return (
         <header className={styles.header}>
             <div className="logo">
-                <Image src={logo} alt="Q logo" />
+                <Link href="/"><Image src={logo} alt="Q logo" /></Link>
             </div>
             <div className="menu">
                 <ul>
@@ -22,10 +22,6 @@ const header = props => {
             </div>
         </header>
     );
-};
-
-header.propTypes = {
-    
 };
 
 export default header;

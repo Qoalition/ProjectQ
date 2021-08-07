@@ -18,7 +18,7 @@ const questions = ({ allQuestions, usedTopics }) => {
         display: false,
         question: '',
         question_description: '',
-        user_id: 1,
+        user_id: Math.floor(Math.random() * 5) + 1,
         topic: '',
         questions: []
     }
@@ -36,7 +36,6 @@ const questions = ({ allQuestions, usedTopics }) => {
     function postQuestion(e) {
         e.preventDefault()
 
-        console.log(_payload);
         fetch('http://localhost:5000/questions/create',
         {
             method: "POST",
@@ -49,8 +48,7 @@ const questions = ({ allQuestions, usedTopics }) => {
         })
         .then( res => res.json() )
         .then( data => {
-            console.log('question created successfully', data)
-            setPayload(initialState);
+            setPayload({initialState, user_id: Math.floor(Math.random() * 5) + 1});
             document.getElementById('questionField').value = '';
             document.getElementById('descriptionField').value = '';
             Router.push('/');
@@ -74,6 +72,7 @@ const questions = ({ allQuestions, usedTopics }) => {
         })
         .then( res => res.json() )
         .then( data => {
+            // console.log(data);
             setPayload({..._payload, questions: data})
         })
         .catch((err) => {
@@ -93,7 +92,6 @@ const questions = ({ allQuestions, usedTopics }) => {
     function handleChange(event) {
         const { name, value } = event.target; //event target is each indivisual form that is being inputed
         setPayload({ ..._payload, [name]: value }); // copies previous state and updates only changed key/values
-        console.log(_payload)
     }
 
     function sqlEscapeString(str) {
@@ -125,6 +123,7 @@ const questions = ({ allQuestions, usedTopics }) => {
 
     useEffect(() => {
         setPayload({..._payload, questions: allQuestions})
+        // console.log(_payload)
     }, [allQuestions])
 
     return (

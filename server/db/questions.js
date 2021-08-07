@@ -124,7 +124,10 @@ const getQuestionsByTopic = (request, response) => {
   // Get all the questions of a specific topic
   const getQuestionsByTopicQuery =
     `SELECT * FROM questions
-      WHERE topic = '${topic}'`
+     INNER JOIN users
+        ON questions.user_id = users.user_id
+     WHERE topic = '${topic}'
+     ORDER BY questions.question_id DESC`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {
