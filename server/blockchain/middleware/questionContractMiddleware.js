@@ -2,6 +2,7 @@ const QuestionContract = require("../classes/QuestionContractClass");
 
 const upVoteQuestion = async (req, res, next) => {
   const { address } = res.locals;
+  if (!address) next();
   const contract = new QuestionContract(address);
 
   try {
@@ -14,6 +15,7 @@ const upVoteQuestion = async (req, res, next) => {
 
 const downVoteQuestion = async (req, res, next) => {
   const { address } = res.locals;
+  if (!address) next();
   const contract = new QuestionContract(address);
 
   try {
