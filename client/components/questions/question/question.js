@@ -12,7 +12,7 @@ import Share from '../../icons/share'
 
 const question = ({ props, showHeader }) => {
     useEffect(() => {
-        console.log(props)
+        // console.log(props)
     })
     return (
         <div className={styles.question}>
