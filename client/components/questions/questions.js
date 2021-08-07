@@ -17,17 +17,12 @@ const questions = ({ allQuestions, usedTopics }) => {
     const initialState = {
         display: false,
         question: '',
-        question_bc_address: randomNumber(),
+        question_description: '',
         user_id: 1,
         topic: '',
         questions: []
     }
-
     const [_payload, setPayload] = useState(initialState);
-
-    function randomNumber() {
-        return ((Math.random() * 100) * (Math.random() * 100)).toString()
-    }
 
     function openModal(e) {
         e.preventDefault()
@@ -35,13 +30,13 @@ const questions = ({ allQuestions, usedTopics }) => {
     }
 
     function getQuestions() {
-        setPayload(initialState);
+        setPayload({..._payload, questions: allQuestions})
     }
 
     function postQuestion(e) {
         e.preventDefault()
 
-        // console.log(_payload);
+        console.log(_payload);
         fetch('http://localhost:5000/questions/create',
         {
             method: "POST",
@@ -50,12 +45,14 @@ const questions = ({ allQuestions, usedTopics }) => {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(_payload)
+            body: JSON.stringify({..._payload, question: sqlEscapeString(_payload.question), question_description: sqlEscapeString(_payload.question_description)})
         })
         .then( res => res.json() )
         .then( data => {
-            setPayload({...initialState, question_bc_address: randomNumber()});
+            console.log('question created successfully', data)
+            setPayload(initialState);
             document.getElementById('questionField').value = '';
+            document.getElementById('descriptionField').value = '';
             Router.push('/');
         })
         .catch((err) => {
@@ -96,6 +93,34 @@ const questions = ({ allQuestions, usedTopics }) => {
     function handleChange(event) {
         const { name, value } = event.target; //event target is each indivisual form that is being inputed
         setPayload({ ..._payload, [name]: value }); // copies previous state and updates only changed key/values
+        console.log(_payload)
+    }
+
+    function sqlEscapeString(str) {
+        if (typeof str != 'string')
+            return str;
+    
+        return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+            switch (char) {
+                case "\0":
+                    return "\\0";
+                case "\x08":
+                    return "\\b";
+                case "\x09":
+                    return "\\t";
+                case "\x1a":
+                    return "\\z";
+                case "\n":
+                    return "\\n";
+                case "\r":
+                    return "\\r";
+                case "\"":
+                case "'":
+                case "\\":
+                case "%":
+                    return "\\"+char; 
+            }
+        });
     }
 
     useEffect(() => {
@@ -122,6 +147,7 @@ const questions = ({ allQuestions, usedTopics }) => {
                 display={_payload.display} 
                 open={openModal} 
                 question={_payload.question} 
+                description={_payload.question_description}
                 handler={handleChange} 
                 post={postQuestion}
                 topic={_payload.topic}

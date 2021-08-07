@@ -21,7 +21,7 @@ const createQuestion = (request, response, next) => {
   const { question, question_description, topic, user_id } = request.body
   const createQuestionQuery =
     `INSERT INTO questions(question, question_description, topic, user_id) \
-      VALUES ('${question}', '${question_description}','${topic}', ${user_id}) \
+      VALUES ('${question}', E'${question_description}', '${topic}', ${user_id}) \
       RETURNING question_id`
 
   db.query(createQuestionQuery, (error, results) => {

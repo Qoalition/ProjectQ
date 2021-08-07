@@ -2,12 +2,18 @@ import React, { useLayoutEffect } from 'react'
 import styles from './modal.module.scss'
 import Close from '../../icons/close'
 
-const modal = ({ display, open, question, handler, post, topic }) => {
+const modal = ({ display, open, question, description, handler, post, topic }) => {
+
+    function showDescriptionBox(e) {
+        const item = e.target;
+        item.classList.toggle('open');
+        const sibling = item.nextElementSibling;
+        sibling.classList.toggle('show');
+    }
 
     useLayoutEffect(() => {
         const e = document.getElementById('modal')
         display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
-        // console.log(_payload);
     }, [display])
 
     return (
@@ -24,6 +30,16 @@ const modal = ({ display, open, question, handler, post, topic }) => {
                         value={question}
                         onChange={handler}
                         placeholder="Start your question with “What”, “Why”, “How”, etc." />
+                    <aside>
+                        <p className="open" onClick={showDescriptionBox}>Add more context to your question (optional)</p>
+                        <textArea
+                            id="descriptionField"
+                            name="question_description"
+                            value={description}
+                            onChange={handler}
+                            placeholder="If any, describe the circumstances that form the setting for your question in terms of which it can be fully understood and assessed."
+                        />
+                    </aside>
                     <div>
                         <select
                             name="topic"

@@ -1,3 +1,9 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: always;
+}
+
 body {
     background-color: #151517;
     color: #fff;
@@ -37,6 +43,13 @@ select {
     &:focus {
         outline: 0;
     }
+}
+
+.show {
+    display: block!important;
+}
+.open::after {
+    content: '▲'!important;
 }
 
 @media screen and (max-width: 500px) {

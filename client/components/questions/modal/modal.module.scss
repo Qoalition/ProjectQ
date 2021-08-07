@@ -14,7 +14,6 @@
     &.show {
         opacity:1;
         pointer-events: all;
-        // transform:translateY(-100vh);
     }
     form {
         background-color: #151517;
@@ -52,8 +51,9 @@
             padding: 1rem;
             border: 0;
             outline: 0;
+            height:min-content;
             &::placeholder {
-                color: rgba(255, 255, 255, 0.8);
+                color: rgba(255, 255, 255, 0.7);
                 letter-spacing: 0.1; 
             }
         }
@@ -68,6 +68,30 @@
             justify-content: space-between;
             margin-top: 2rem;
         }
+        aside {
+            p {
+                cursor: pointer;
+                font-style: italic;
+                color: rgba(255, 255, 255, 0.8);
+                &:hover {
+                    text-decoration: underline;
+                }
+                &::after {
+                    content: '▼';
+                    font-style: normal;
+                    font-size: 0.65em;
+                    margin-left: 0.5rem;
+                }
+            }
+            textarea {
+                display: none;
+                font-size: 1rem;
+                font-weight: 400;
+                letter-spacing: 0.1;
+                line-height: 1.54em;
+                padding: 1.25rem 0;
+            }
+        }
         button {
             border: 0;
             color: rgba(255, 255, 255, 0.6);
@@ -77,4 +101,5 @@
             }
         }
     }
+    
 }

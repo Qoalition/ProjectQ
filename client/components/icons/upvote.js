@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {useRouter} from 'next/router'
 
 
 const upvote = ({type, id, voteCount, fill, stroke}) => {
@@ -47,7 +46,7 @@ const upvote = ({type, id, voteCount, fill, stroke}) => {
     }
 
     function handleClick(e) {
-        console.log(e);
+        // console.log(e);
         type === 'question' ? upVoteQuestion() : upVoteAnswer() 
     }
 
