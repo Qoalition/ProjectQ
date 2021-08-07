@@ -75,15 +75,15 @@ const upvoteQuestion = (request, response, next) => {
   })
 }
 
-const downvoteQuestion = (request, response) => {
+const downvoteQuestion = (request, response, next) => {
   const { question_id } = request.body
 
   // Downvote a question by question id
   const downvoteQuestionQuery =
     `UPDATE questions
-      SET num_upvotes = num_upvotes - 1
+      SET num_downvotes = num_downvotes + 1
         WHERE question_id = ${question_id}
-        AND num_upvotes > 0`
+          RETURNING num_upvotes, question_bc_address`
 
   db.query(downvoteQuestionQuery, (error, results) => {
     if (error) {
@@ -91,11 +91,9 @@ const downvoteQuestion = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : downvoteQuestion => ", results.rows[0].question_id)
-
-    //contract.downvoteQuestion(...)
-
-    response.status(200).json(results.rows)
+    response.locals.response = results.rows[0];
+    response.locals.address = results.rows[0].question_bc_address;
+    next();
   })
 }
 
