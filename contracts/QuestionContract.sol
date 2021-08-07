@@ -22,10 +22,10 @@ contract QuestionContract {
 
     constructor(uint _id) {
         _question.id = _id;
-        _question.upVotes = 1;
+        _question.upVotes = 0;
         _question.downVotes = 0;
         _question.asker = tx.origin;
-        upVoters[tx.origin] = true;
+        // upVoters[tx.origin] = true;
         manager = tx.origin;
     }
 
