@@ -6,11 +6,6 @@ import Header from '../components/header/header'
 import Questions from '../components/questions/questions'
 
 const Feed = ( props ) => {
-
-    useEffect(() => {
-        // console.log(props)
-    }, [])
-
     return (
         <div>
             <Header />

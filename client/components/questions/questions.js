@@ -57,15 +57,6 @@ const questions = ({ allQuestions, usedTopics }) => {
         const { name, value } = event.target; //event target is each indivisual form that is being inputed
         setPayload({ ..._payload, [name]: value }); // copies previous state and updates only changed key/values
     }
-    
-    function getQuestions() {
-        fetch(
-            'http://localhost:5000/questions/get',
-            {method: 'GET', mode: 'cors'}
-        )
-            .then( res => res.json() )
-            .then( data => {/*console.log(data)*/} )
-    }
 
     useLayoutEffect(() => {
         const e = document.getElementById('modal')

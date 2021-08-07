@@ -1,35 +1,28 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
 // SCSS Module
 import styles from './topics.module.scss'
 
 const topics = ( { props } ) => {
-    useEffect(() => {
-        console.log(props)
-    }, [])
+
+    function handleClick(e) {
+        const prev = document.getElementsByClassName(styles.active)[0];
+        if (prev) prev.classList.remove(styles.active);
+        const item = e.target;
+        item.classList.toggle(styles.active);
+    }
 
     return (
         <div className={styles.topics}>
             <ul>
-            {props.map(e =><li>{e.topic}</li>)}
-                {/* <li>topic one</li>
-                <li>topic two</li>
-                <li>topic three</li>
-                <li className={styles.active}>topic four</li>
-                <li>topic five</li>
-                <li>topic six</li>
-                <li>topic seven</li>
-                <li>topic eight</li>
-                <li>topic nine</li>
-                <li>topic ten</li> */}
+                {
+                    props.map((e, i) => {
+                        return <li onClick={handleClick} key={i}>{e.topic}</li>
+                    })
+                }
             </ul>
         </div>
     );
-};
-
-topics.propTypes = {
-    
 };
 
 export default topics;
