@@ -52,7 +52,7 @@ const saveQuestionAddress = (request, response, next) => {
   })
 }
 
-const upvoteQuestion = (request, response) => {
+const upvoteQuestion = (request, response, next) => {
   const { question_id } = request.body
 
   // Upvote a question by question ID
@@ -60,7 +60,8 @@ const upvoteQuestion = (request, response) => {
   const upvoteQuestionQuery =
     `UPDATE questions
       SET num_upvotes = num_upvotes + 1
-        WHERE question_id = ${question_id}`
+        WHERE question_id = ${question_id}
+          RETURNING num_upvotes, question_bc_address`
 
   db.query(upvoteQuestionQuery, (error, results) => {
     if (error) {
@@ -68,11 +69,9 @@ const upvoteQuestion = (request, response) => {
       return;
     }
 
-    console.log("DEBUG :: Success : upvoteQuestion => ", results.rows[0].question_id)
-
-    //contract.upvoteQuestion(...)
-
-    response.status(200).json(results.rows)
+    response.locals.response = results.rows[0];
+    response.locals.address = results.rows[0].question_bc_address;
+    next();
   })
 }
 
