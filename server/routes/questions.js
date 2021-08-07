@@ -22,6 +22,6 @@ router.post("/getFullDetails", db.getFullQuestionInfo);
 
 router.post("/getByTopic", db.getQuestionsByTopic);
 
-router.post("/getUniqueTopics", db.getUniqueQuestionTopics);
+router.get("/getUniqueTopics", db.getUniqueQuestionTopics);
 
 module.exports = router

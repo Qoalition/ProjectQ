@@ -1,12 +1,105 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './questions.module.scss';
+import topicStyles from './topics/topics.module.scss'
 
 // components
 import Question from './question/question'
 import Topics from './topics/topics'
+import Close from '../icons/close'
+import Router from 'next/router'
 
-const questions = props => {
+const questions = ({ allQuestions, usedTopics }) => {
+    const initialState = {
+        display: false,
+        question: '',
+        question_bc_address: randomNumber(),
+        user_id: 1,
+        topic: '',
+        questions: allQuestions
+    }
+
+    const [_payload, setPayload] = useState(initialState);
+
+    function randomNumber() {
+        return ((Math.random() * 100) * (Math.random() * 100)).toString()
+    }
+
+    function openModal(e) {
+        e.preventDefault()
+        _payload.display ? setPayload({..._payload, display: false}) : setPayload({..._payload, display: true}) 
+    }
+
+    function getQuestions() {
+        setPayload(initialState);
+    }
+
+    function postQuestion(e) {
+        e.preventDefault()
+
+        console.log(_payload);
+        fetch('http://localhost:5000/questions/create',
+        {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(_payload)
+        })
+        .then( res => res.json() )
+        .then( data => {
+            setPayload({...initialState, question_bc_address: randomNumber()});
+            document.getElementById('questionField').value = '';
+            Router.push('/');
+        })
+        .catch((err) => {
+            console.log("Post Fail", err);
+        });
+    }
+    
+    function handleChange(event) {
+        const { name, value } = event.target; //event target is each indivisual form that is being inputed
+        setPayload({ ..._payload, [name]: value }); // copies previous state and updates only changed key/values
+    }
+
+    function fetchQuestionsByTopic(topic) {
+        const request = { topic: topic };
+        fetch('http://localhost:5000/questions/getByTopic',
+        {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+        .then( res => res.json() )
+        .then( data => {
+            setPayload({..._payload, questions: data})
+        })
+        .catch((err) => {
+            console.log("Post Fail", err);
+        });
+    }
+
+    function changeTopic(e) {
+        const prev = document.getElementsByClassName(topicStyles.active)[0];
+        if (prev) prev.classList.remove(topicStyles.active);
+        const item = e.target;
+        const value = item.innerHTML;
+        item.classList.toggle(topicStyles.active);
+        value === 'All Topics' ? getQuestions() : fetchQuestionsByTopic(value);
+    }
+
+    useLayoutEffect(() => {
+        const e = document.getElementById('modal')
+        _payload.display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
+        // console.log(_payload);
+    }, [_payload.display])
+
     return (
         <>
             <div className={styles.actions}>
@@ -15,23 +108,87 @@ const questions = props => {
                     <option>Most Popular</option>
                     <option>Highest Rated</option>
                 </select>
-                <button>Ask a Question</button>
+                <button onClick={openModal}>Ask a Question</button>
             </div>
             <div className={styles.questions}>
-                <Topics />
+                <Topics topics={usedTopics} callback={changeTopic} />
                 <div className="questionsFeed">
-                    <Question />
-                    <Question />
-                    <Question />
-                    <Question />
+                    {_payload.questions.map(e =><Question props={e} key={Math.random(0, 100)} />)}
                 </div>
+            </div>
+            <div id="modal" className={styles.modal}>
+                <form onSubmit={(e) => postQuestion(e)}>
+                    <header>
+                        <Close onClick={openModal}/>
+                        <h3>Ask a Question</h3>
+                    </header>
+                    <fieldset>
+                        <textArea 
+                            id="questionField"
+                            name="question"
+                            value={_payload.question}
+                            onChange={handleChange}
+                            placeholder="Start your question with “What”, “Why”, “How”, etc." />
+                        <div>
+                            <select
+                                name="topic"
+                                value={_payload.topic}
+                                onChange={handleChange}
+                            >
+                                <option value="" defaultValue disabled hidden>Select a Topic</option>
+                                <option>Technology</option>
+                                <option>Movies</option>
+                                <option>Music</option>
+                                <option>Writing</option>
+                                <option>Computer Science</option>
+                                <option>Dating</option>
+                                <option>Relationships</option>
+                                <option>Photography</option>
+                                <option>Arts &amp; Crafts</option>
+                                <option>Politics</option>
+                                <option>Social Sciences</option>
+                                <option>Health</option>
+                                <option>Medicine</option>
+                                <option>Life Advice</option>
+                                <option>Entertainment</option>
+                                <option>Food</option>
+                                <option>Pop Culture</option>
+                                <option>Science</option>
+                                <option>Business</option>
+                                <option>Money</option>
+                                <option>Sports</option>
+                                <option>News</option>
+                                <option>Current Events</option>
+                                <option>Education</option>
+                                <option>Fitness</option>
+                                <option>Retirement</option>
+                                <option>Travel</option>
+                                <option>Astronomy</option>
+                                <option>Horticulture</option>
+                                <option>Fashion</option>
+                                <option>Marketing</option>
+                                <option>Startups</option>
+                                <option>Communication </option>
+                            </select>
+                            <div className="actions">
+                                <button onClick={openModal}>Cancel</button>
+                                <input type="submit" value="Add Question" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
         </>
     );
 };
 
 questions.propTypes = {
-    
+    allQuestions: PropTypes.array,
+    topics: PropTypes.array
 };
+questions.defaultProps = {
+    allQuestions: [],
+    topics: []
+}
 
 export default questions;

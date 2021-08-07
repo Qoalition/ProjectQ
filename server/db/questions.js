@@ -2,10 +2,10 @@ const db = require('./db')
 
 const getAllQuestions = (request, response) => {
   const getAllQuestionsQuery =
-    'SELECT *, (SELECT count(*) FROM answers WHERE question_id=questions.question_id) as answer_count \
-    FROM questions \
-    INNER JOIN users ON questions.user_id=users.user_id \
-    ORDER BY questions.question_id ASC'
+    `SELECT *, (SELECT count(*)::int FROM answers WHERE question_id=questions.question_id) as answer_count \ 
+      FROM questions \
+      INNER JOIN users ON questions.user_id=users.user_id \
+      ORDER BY questions.question_id DESC`;
 
   db.query(getAllQuestionsQuery, (error, results) => {
     if (error) {
@@ -50,6 +50,7 @@ const saveQuestionAddress = (request, response, next) => {
 
 const upvoteQuestion = (request, response, next) => {
   const { question_id } = request.body
+  console.log(request.body)
 
   // Upvote a question by question ID
   // Will have to consider overflow... but not now :)
@@ -119,11 +120,11 @@ const getFullQuestionInfo = (request, response) => {
 
 const getQuestionsByTopic = (request, response) => {
   const { topic } = request.body
-
+  console.log(request.body)
   // Get all the questions of a specific topic
   const getQuestionsByTopicQuery =
     `SELECT * FROM questions
-      WHERE topic = ${topic}`
+      WHERE topic = '${topic}'`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {
@@ -138,9 +139,10 @@ const getQuestionsByTopic = (request, response) => {
 const getUniqueQuestionTopics = (request, response) => {
   // Get all unique topics of questions
   const getQuestionsByTopicQuery =
-    `SELECT
-      DISTINCT topic
-    FROM questions`
+    `SELECT topic, Count(topic) As theCount 
+      FROM questions
+      GROUP BY topic
+      ORDER BY thecount DESC`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {
