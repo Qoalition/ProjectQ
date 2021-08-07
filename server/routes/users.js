@@ -6,8 +6,4 @@ router.get("/get", db.getUsers);
 
 router.post("/create", db.createUser);
 
-// login
-
-// 
-
 module.exports = router

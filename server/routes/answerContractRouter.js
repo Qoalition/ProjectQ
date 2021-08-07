@@ -10,5 +10,4 @@ router.get("/downVoteAnswer/:address", downVoteAnswer);
 router.get("/upVoteAnswer/:address", upVoteAnswer);
 router.get("/getAnswerVotes/:address", getAnswerVotes);
 
-
 module.exports = router;

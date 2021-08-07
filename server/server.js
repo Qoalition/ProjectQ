@@ -1,7 +1,6 @@
 "use strict";
 var next = require("next");
 const express = require("express");
-const Web3 = require("web3");
 var dev = process.env.NODE_ENV !== "production";
 var app = next({ dev: dev });
 const usersRouter = require("./routes/users");
@@ -19,6 +18,7 @@ app.prepare().then(function () {
   server.use("/users", usersRouter);
   server.use("/questions", questionsRouter);
   server.use("/answers", answersRouter);
+
   // Keep for testing
   // server.use("/rootContract", rootContractRouter);
   // server.use("/questionContract", questionContractRouter);
