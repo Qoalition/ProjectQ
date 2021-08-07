@@ -1,24 +1,34 @@
 const db = require('./db')
 
-const createAnswer = (request, response) => {
-  const { answer, answer_bc_address, question_id, user_id } = request.body
+const createAnswer = (request, response, next) => {
+  const { answer, question_id, user_id } = request.body
 
   // Create an answer to a question from a given user
   const createAnswerQuery =
-    `INSERT INTO answers(answer, answer_bc_address, question_id, user_id) \
-      VALUES ('${answer}', ${answer_bc_address}, ${question_id}, ${user_id}) \
+    `INSERT INTO answers(answer, question_id, user_id) \
+      VALUES ('${answer}', ${question_id}, ${user_id}) \
       RETURNING answer_id`
+
+  const getAnswerAddress =
+    `SELECT question_bc_address FROM questions \
+      WHERE question_id = ${question_id}`
 
   db.query(createAnswerQuery, (error, results) => {
     if (error) {
       response.status(400).json(error)
       return;
     }
-    console.log("DEBUG :: answers => ", results.rows[0].answer_id)
+    console.log("DEBUG :: answers => ", results.rows[0])
 
-    //contract.createAnswer(results.rows[0].answer_id)
+    response.locals.response = results.rows[0];
+    response.locals.answerId = results.rows[0].answer_id;
 
-    response.status(200).json(results.rows)
+    // Check this works
+    db.query(getAnswerAddress, (error, results) => {
+
+      res.locals.address = results.rows[0].question_bc_address
+      next();
+    });
   })
 }
 
