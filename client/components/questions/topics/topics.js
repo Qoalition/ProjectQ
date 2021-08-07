@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // SCSS Module
 import styles from './topics.module.scss'
 
 const topics = ({ topics, callback }) => {
-    
+    useEffect(() => {
+        // console.log(topics);
+    })
     return (
         <div className={styles.topics}>
             <ul>
