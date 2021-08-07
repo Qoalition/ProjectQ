@@ -1,4 +1,10 @@
 const { web3, DEFAULT_GAS } = require("../../config");
+/**
+  * @dev 
+  * The AbstractContractClass defines the contract (using the abi, and 
+  * deployed contract address), the user account to make transactions on 
+  * the blockchain, and gas in the contructor.
+  */
 
 class AbstractContractClass {
   constructor(abi, address, accountIndex = 0, gas = DEFAULT_GAS) {
