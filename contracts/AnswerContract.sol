@@ -14,10 +14,10 @@ contract AnswerContract {
     }
     constructor(uint _id) {
         _answer.id = _id;
-        _answer.upVotes = 1;
+        _answer.upVotes = 0;
         _answer.downVotes = 0;
         _answer.answerer = tx.origin;
-        upVoters[tx.origin] = true;
+        // upVoters[tx.origin] = true;
         manager = tx.origin;
     }
 
