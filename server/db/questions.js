@@ -120,11 +120,11 @@ const getFullQuestionInfo = (request, response) => {
 
 const getQuestionsByTopic = (request, response) => {
   const { topic } = request.body
-
+  console.log(request.body)
   // Get all the questions of a specific topic
   const getQuestionsByTopicQuery =
     `SELECT * FROM questions
-      WHERE topic = ${topic_id}`
+      WHERE topic = '${topic}'`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {

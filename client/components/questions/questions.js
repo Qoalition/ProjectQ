@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './questions.module.scss';
+import topicStyles from './topics/topics.module.scss'
 
 // components
 import Question from './question/question'
@@ -14,7 +15,8 @@ const questions = ({ allQuestions, usedTopics }) => {
         question: '',
         question_bc_address: randomNumber(),
         user_id: 1,
-        topic: ''
+        topic: '',
+        questions: allQuestions
     }
 
     const [_payload, setPayload] = useState(initialState);
@@ -26,6 +28,10 @@ const questions = ({ allQuestions, usedTopics }) => {
     function openModal(e) {
         e.preventDefault()
         _payload.display ? setPayload({..._payload, display: false}) : setPayload({..._payload, display: true}) 
+    }
+
+    function getQuestions() {
+        setPayload(initialState);
     }
 
     function postQuestion(e) {
@@ -58,6 +64,36 @@ const questions = ({ allQuestions, usedTopics }) => {
         setPayload({ ..._payload, [name]: value }); // copies previous state and updates only changed key/values
     }
 
+    function fetchQuestionsByTopic(topic) {
+        const request = { topic: topic };
+        fetch('http://localhost:5000/questions/getByTopic',
+        {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+        })
+        .then( res => res.json() )
+        .then( data => {
+            setPayload({..._payload, questions: data})
+        })
+        .catch((err) => {
+            console.log("Post Fail", err);
+        });
+    }
+
+    function changeTopic(e) {
+        const prev = document.getElementsByClassName(topicStyles.active)[0];
+        if (prev) prev.classList.remove(topicStyles.active);
+        const item = e.target;
+        const value = item.innerHTML;
+        item.classList.toggle(topicStyles.active);
+        value === 'All Topics' ? getQuestions() : fetchQuestionsByTopic(value);
+    }
+
     useLayoutEffect(() => {
         const e = document.getElementById('modal')
         _payload.display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
@@ -75,9 +111,9 @@ const questions = ({ allQuestions, usedTopics }) => {
                 <button onClick={openModal}>Ask a Question</button>
             </div>
             <div className={styles.questions}>
-                <Topics props={usedTopics} />
+                <Topics topics={usedTopics} callback={changeTopic} />
                 <div className="questionsFeed">
-                    {allQuestions.map(e =><Question props={e} key={Math.random(0, 100)} />)}
+                    {_payload.questions.map(e =><Question props={e} key={Math.random(0, 100)} />)}
                 </div>
             </div>
             <div id="modal" className={styles.modal}>
