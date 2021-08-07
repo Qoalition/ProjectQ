@@ -8,7 +8,7 @@ import Topics from './topics/topics'
 import Close from '../icons/close'
 import Router from 'next/router'
 
-const questions = ({ allQuestions, topics }) => {
+const questions = ({ allQuestions, usedTopics }) => {
     const initialState = {
         display: false,
         question: '',
@@ -70,7 +70,7 @@ const questions = ({ allQuestions, topics }) => {
     useLayoutEffect(() => {
         const e = document.getElementById('modal')
         _payload.display ? e.classList.add(styles.show) : e.classList.remove(styles.show)
-        console.log(_payload);
+        // console.log(_payload);
     }, [_payload.display])
 
     return (
@@ -84,7 +84,7 @@ const questions = ({ allQuestions, topics }) => {
                 <button onClick={openModal}>Ask a Question</button>
             </div>
             <div className={styles.questions}>
-                <Topics />
+                <Topics props={usedTopics} />
                 <div className="questionsFeed">
                     {allQuestions.map(e =><Question props={e} key={Math.random(0, 100)} />)}
                 </div>
@@ -110,14 +110,38 @@ const questions = ({ allQuestions, topics }) => {
                             >
                                 <option value="" defaultValue disabled hidden>Select a Topic</option>
                                 <option>Technology</option>
-                                <option>Business</option>
-                                <option>Current Events</option>
+                                <option>Movies</option>
+                                <option>Music</option>
+                                <option>Writing</option>
                                 <option>Computer Science</option>
+                                <option>Dating</option>
+                                <option>Relationships</option>
+                                <option>Photography</option>
+                                <option>Arts &amp; Crafts</option>
                                 <option>Politics</option>
                                 <option>Social Sciences</option>
                                 <option>Health</option>
                                 <option>Medicine</option>
+                                <option>Life Advice</option>
                                 <option>Entertainment</option>
+                                <option>Food</option>
+                                <option>Pop Culture</option>
+                                <option>Science</option>
+                                <option>Business</option>
+                                <option>Money</option>
+                                <option>Sports</option>
+                                <option>News</option>
+                                <option>Current Events</option>
+                                <option>Education</option>
+                                <option>Fitness</option>
+                                <option>Retirement</option>
+                                <option>Travel</option>
+                                <option>Astronomy</option>
+                                <option>Horticulture</option>
+                                <option>Fashion</option>
+                                <option>Marketing</option>
+                                <option>Startups</option>
+                                <option>Communication </option>
                             </select>
                             <div className="actions">
                                 <button onClick={openModal}>Cancel</button>

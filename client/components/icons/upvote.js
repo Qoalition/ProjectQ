@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Router, {useRouter} from 'next/router'
-
+import {useRouter} from 'next/router'
 
 
 const upvote = ({type, id, voteCount, fill, stroke}) => {
     const [count, setCount] = useState(voteCount)
-    const router = useRouter()
 
     function upVoteQuestion() {
         fetch('http://localhost:5000/questions/upvote',
@@ -22,7 +20,6 @@ const upvote = ({type, id, voteCount, fill, stroke}) => {
         .then( res => res.json() )
         .then( data => {
             setCount(count + 1);
-            // Router.push(router.pathname);
         })
         .catch((err) => {
             console.log("Post Fail", err);
@@ -43,7 +40,6 @@ const upvote = ({type, id, voteCount, fill, stroke}) => {
         .then( res => res.json() )
         .then( data => {
             setCount(count + 1);
-            // Router.push(router.pathname);
         })
         .catch((err) => {
             console.log("Post Fail", err);

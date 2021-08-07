@@ -145,9 +145,10 @@ const getUniqueQuestionTopics = (request, response) => {
 
   // Get all unique topics of questions
   const getQuestionsByTopicQuery =
-    `SELECT
-      DISTINCT topic
-    FROM questions`
+    `SELECT topic, Count(topic) As theCount 
+      FROM questions
+      GROUP BY topic
+      ORDER BY thecount DESC`
 
   db.query(getQuestionsByTopicQuery, (error, results) => {
     if (error) {

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 
 // Components
 import Header from '../components/header/header'
 import Questions from '../components/questions/questions'
 
-const Feed = ({ getQuestions }) => {
+const Feed = ( props ) => {
 
     useEffect(() => {
         // console.log(props)
@@ -15,23 +14,17 @@ const Feed = ({ getQuestions }) => {
     return (
         <div>
             <Header />
-            <Questions allQuestions={getQuestions} />
+            <Questions allQuestions={props.questions} usedTopics={props.topics} />
         </div>
     );
 };
 
-const getQuestions = Feed.getInitialProps = async (ctx) => {
-    const res = await fetch('http://localhost:5000/questions/get', {method: 'GET', mode: 'cors'})
-    const json = await res.json()
-    return { getQuestions: json }
-}
-
-Feed.propTypes = {
-    getQuestions: PropTypes.array
-};
-
-Feed.defaultProps = {
-    getQuestions: getQuestions
+const data = Feed.getInitialProps = async (ctx) => {
+    const [ questions, topics ] = await Promise.all([
+        fetch('http://localhost:5000/questions/get', {method: 'GET', mode: 'cors'}).then(r => r.json()),
+        fetch('http://localhost:5000/questions/getUniqueTopics', {method: 'GET', mode: 'cors'}).then(r => r.json())
+    ])
+    return { questions, topics }
 }
 
 export default Feed;
